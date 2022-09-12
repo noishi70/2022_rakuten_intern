@@ -40,15 +40,15 @@ def get_timeline():
     pass
 
 
-@router.post("/users/post")
-# TODO: Post の schemas をかく
-def post_post(post: Post):
-    """投稿をする機能
+# @router.post("/users/post")
+# # TODO: Post の schemas をかく
+# def post_post(post: Post):
+#     """投稿をする機能
 
-    Args:
-        post (Post): 投稿内容
-    """
-    pass
+#     Args:
+#         post (Post): 投稿内容
+#     """
+#     pass
 
 
 
