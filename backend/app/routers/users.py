@@ -4,9 +4,56 @@ router = APIRouter()
 
 @router.post("/users/signup")
 def users_signup():
+    """サインアップする機能
+    """
     pass
 
-@router.
+
+@router.get("/users/me")
+def users_me():
+    """プロフィールの部分
+    """
+    pass
+
+
+@router.get("/users/{id}")
+def get_user(id: int):
+    """ID で指定したユーザを返す
+
+    Args:
+        id (int): ユーザーID
+    """
+    pass
+
+
+@router.patch("/users/me")
+def patch_me():
+    """プロフィールの変更
+    """
+    pass
+
+
+@router.get("/users/timeline")
+def get_timeline():
+    """タイムライン情報の取得
+    """
+    pass
+
+
+@router.post("/users/post")
+# TODO: Post の schemas をかく
+def post_post(post: Post):
+    """投稿をする機能
+
+    Args:
+        post (Post): 投稿内容
+    """
+    pass
+
+
+
+
+
 
 # API設計
 # /apiの配下に設置
