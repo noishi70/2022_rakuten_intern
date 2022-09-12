@@ -3,3 +3,4 @@ sqlalchemy==1.4.31
 alembic==1.7.6
 mysqlclient==2.1.0
 uvicorn==0.17.5
+pymysql==1.0.2
