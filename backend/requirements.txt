@@ -4,3 +4,4 @@ alembic==1.7.6
 mysqlclient==2.1.0
 uvicorn==0.17.5
 pymysql==1.0.2
+pydantic==1.10.2
