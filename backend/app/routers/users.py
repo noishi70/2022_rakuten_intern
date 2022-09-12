@@ -2,21 +2,28 @@ from fastapi import APIRouter
 
 router = APIRouter()
 
-@router.post("/users/signup")
+@router.post("/signup")
 def users_signup():
     """サインアップする機能
     """
     pass
 
 
-@router.get("/users/me")
+@router.get("/me")
 def users_me():
     """プロフィールの部分
     """
     pass
 
 
-@router.get("/users/{id}")
+@router.patch("/me")
+def patch_me():
+    """プロフィールの変更
+    """
+    pass
+
+
+@router.get("/{id}")
 def get_user(id: int):
     """ID で指定したユーザを返す
 
@@ -26,21 +33,15 @@ def get_user(id: int):
     pass
 
 
-@router.patch("/users/me")
-def patch_me():
-    """プロフィールの変更
-    """
-    pass
-
-
-@router.get("/users/timeline")
+@router.get("/timeline")
 def get_timeline():
     """タイムライン情報の取得
     """
     pass
 
 
-# @router.post("/users/post")
+
+# @router.post("/post")
 # # TODO: Post の schemas をかく
 # def post_post(post: Post):
 #     """投稿をする機能
