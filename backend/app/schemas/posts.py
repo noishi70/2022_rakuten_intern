@@ -10,3 +10,6 @@ class Post(BaseModel):
     content: str
     url: str
     datetime: datetime
+
+    class Config:
+        orm_mode = True

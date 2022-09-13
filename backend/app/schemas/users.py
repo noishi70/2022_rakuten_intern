@@ -9,3 +9,6 @@ class User(BaseModel):
     header_img: Optional[str] = Field(None)
     icon: Optional[str] = Field(None)
     comment: Optional[str] = Field(None)
+
+    class Config:
+        orm_mode = True
