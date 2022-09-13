@@ -3,7 +3,7 @@ from typing import Optional
 from fastapi import APIRouter
 
 from cruds.posts import  create_post,fetch_posts
-from schemas.posts import Post 
+from models.models import Post 
 
 router = APIRouter()
 
@@ -18,7 +18,7 @@ def post_post(title: str, content: str, url: str, duration: int):
         url (str): 投稿のURL
         duration (int): 所要時間
     """
-    create_post(title=title, content=content, url=url, duration=duration)
+    create_post(title=title, content=content, url=url, duration=duration, created_by=1)
     return 
 
 @router.get("/posts")
@@ -33,7 +33,4 @@ def get_posts(key_word: Optional[str] = None, time: Optional[int] = None) -> lis
         list[Post]: 投稿の一覧
     """
     posts = fetch_posts()
-    # schemaに移し替えす
-    schema_posts = [Post(**post) for post in posts]
-    
-    return schema_posts
+    return posts
