@@ -34,7 +34,7 @@ class Post(Base):
     title = Column(String(128), nullable=False)
     content = Column(String(1024))
     url = Column(String(512))
-    datetime = Column(DateTime, default=datetime.now().time(), nullable=False)
+    datetime = Column(DateTime, default=datetime.now(), nullable=False)
     duration = Column(Integer)
     created_by = Column(Integer, ForeignKey("users.user_id"), nullable=False)
     
