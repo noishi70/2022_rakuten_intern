@@ -1,0 +1,34 @@
+.content {
+  position: relative;
+  text-align: center;
+}
+
+.accordion {
+  line-height: 0;
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    line-height 0.3s ease-out,
+    opacity 0.1s linear,
+    visibility 0.1s linear;
+}
+
+.accordionopen {
+  line-height: 1.5;
+  opacity: 1;
+  visibility: visible;
+  transition:
+    line-height 0.3s ease-out,
+    opacity 0.1s linear,
+    visibility 0.1s linear;
+}
+
+.openbutton {
+  color: #888888;
+  background-color: rgba(0, 0, 0, 0);
+  border: none;
+}
+
+.openbutton:hover {
+  color: #aaaaaa;
+}
