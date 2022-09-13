@@ -8,11 +8,6 @@ router = APIRouter()
 
 @router.post("/signup")
 def user_signup(email: str, password: str):
-    """
-
-    Args:
-        user (User): _description_
-    """
     signup(email, password)
     return 
 
@@ -34,7 +29,7 @@ def patch_me():
     """プロフィールの変更
     """
     user = mock_authorize()
-    update_me(user_id=1, name="rakuten panda")
+    update_me(user_id=user.user_id, name="rakuten panda")
     return
 
 # ここまで
