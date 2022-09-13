@@ -1,32 +1,89 @@
 .content {
   position: relative;
   text-align: center;
+  overflow-wrap: break-word;
+  margin: 20px;
+  box-shadow: 0 0 10px 0 rgba(40, 44, 52, 0.8);
+}
+
+.img {
+  width:50px;
+	height:50px;
+	object-fit:cover;
+	border-radius:50%;
+  padding: 0 10px 0 10px;
+}
+
+.user_info {
+  display: flex;
+  overflow: hidden;
+}
+
+.name {
+  font-weight: bold;
+}
+
+.datetime {
+  padding: 10px;
+}
+
+.title {
+  border-bottom: black;
+  padding: 0 20px 0 0;
+  font-size: large;
+}
+
+.text {
+  text-align: left;
+}
+
+.url {
+  display: flex;
+  padding: 0 0 20px 0;
+}
+
+.user_id {
+  color: #888888;
 }
 
 .accordion {
   line-height: 0;
-  opacity: 0;
-  visibility: hidden;
+  opacity: 0.2;
+  visibility: visible;
+  padding: 0 20px 0 0;
   transition:
+    padding 0.3s ease-out,
     line-height 0.3s ease-out,
     opacity 0.1s linear,
     visibility 0.1s linear;
 }
 
 .accordionopen {
-  line-height: 1.5;
+  line-height: 1;
   opacity: 1;
   visibility: visible;
+  padding: 0 20px 10px 0;
   transition:
+    padding 0.3s ease-out,
     line-height 0.3s ease-out,
     opacity 0.1s linear,
     visibility 0.1s linear;
+}
+
+.contentgrid {
+  display: flex;
+}
+
+.buttongrid {
+  display: flex;
 }
 
 .openbutton {
   color: #888888;
   background-color: rgba(0, 0, 0, 0);
   border: none;
+  display: flex;
+  padding: 0 0 20px 0;
 }
 
 .openbutton:hover {
