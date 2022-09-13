@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import {TextField, Button , IconButton} from "@mui/material";
+import {TextField, Button , IconButton, Stack} from "@mui/material";
 import CancelOutlinedIcon from '@mui/icons-material/CancelOutlined';
 import styled from 'styled-components';
 import STYLES from '../styles/const';
@@ -26,62 +26,79 @@ export default function Search(props: Props){
     setTweet({...tweet, url: event.target.value})
   }
   const handleTimeChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setTweet({...tweet, time:  Number(event.target.value)})
+    if(!isNaN(Number(event.target.value))){
+      setTweet({...tweet, time:  Number(event.target.value)})
+    }
   }
   const handleTextChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setTweet({...tweet, text: event.target.value})
   }
   const output = () => {
-    console.log(tweet)
+    props.setContent(tweet);
   }
 
   return(
+    <>
+
     <Wrapper>
-      <Head>
-      <IconWrapper>
-        <IconButton  aria-label="Search" size="large">
-          <CancelOutlinedIcon />
-        </IconButton>
-      </IconWrapper>
-      </Head>
-      <Body>
-        <User>
-          <img src="https://placehold.jp/3d4070/ffffff/150x150.png"/>
-        </User>
-        <Form>
-          <FormLine>
-            <textarea
-              placeholder="タイトル"
-              onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) => handleTitleChange(event)}
-            />
-          </FormLine>
-          <FormLine>
-            <textarea
-              placeholder="URL"
-              onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) => handleURLChange(event)}
-            />
-          </FormLine>
-          <FormLine>
-            <textarea
-              placeholder="所要時間"
-              onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) => handleTimeChange(event)}
-            />
-          </FormLine>
-          <FormText>
-            <textarea
-              placeholder="内容"
-              onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) => handleTextChange(event)}
-            />
-          </FormText>
-          
-          <FormTail>
+    <Head>
+    <IconWrapper>
+      <IconButton  aria-label="Search" size="large">
+        <CancelOutlinedIcon />
+      </IconButton>
+    </IconWrapper>
+    </Head>
+    <Body>
+      <User>
+        <img src="https://placehold.jp/3d4070/ffffff/150x150.png"/>
+      </User>
+      <Form>
+      <Stack spacing={2}>
+        <TextField
+                  id="search-keyword"
+                  label="タイトル"
+                  variant="standard"
+                  value={tweet.title}
+                  rows = {1}
+                  onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) => handleTitleChange(event)}
+        />
+        <TextField
+                  id="search-keyword"
+                  label="内容"
+                  variant="standard"
+                  value={tweet.text}
+                  multiline = {true}
+                  rows = {5}
+                  onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) => handleTextChange(event)}
+                  
+        />
+        <TextField
+                  id="search-keyword"
+                  label="URL"
+                  variant="standard"
+                  value={tweet.url}
+                  rows = {1}
+                  onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) => handleURLChange(event)}
+        />
+        <TextField
+                  id="search-keyword"
+                  label="所要時間"
+                  variant="standard"
+                  value={tweet.time}
+                  rows = {1}
+                  onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) => handleTimeChange(event)}
+        />
+      </Stack>
+      <FormTail>
             <ButtonWrapper>
               <Button variant="text" onClick={() => output()}> 投稿 </Button>
             </ButtonWrapper>
           </FormTail>
-        </Form>
-      </Body>
+      </Form>
+    </Body>
     </Wrapper>
+    </>
+    
   );
 }
 
