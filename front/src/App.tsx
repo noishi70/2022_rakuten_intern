@@ -5,7 +5,7 @@ import Post from './components/Post';
 
 function App() {
   const [value, setValue] = useState<Key>({word: "",time: null})
-  const [Content, setContent] = useState<Content>({title: "", url: "", time: 0, text: ""})
+  const [content, setContent] = useState<Content>({title: "", url: "", time: 0, text: ""})
 
   type Key = {
     word: string;
@@ -24,6 +24,10 @@ function App() {
       <p>{value.word}</p>
       <p>{value.time}</p>
       <Post setContent = {setContent}/>
+      <p>{content.title}</p>
+      <p>{content.text}</p>
+      <p>{content.url}</p>
+      <p>{content.time}</p>
     </div>
   );
 }
