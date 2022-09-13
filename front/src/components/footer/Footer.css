@@ -1,0 +1,9 @@
+.footer {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.icon {
+    height: 50px;
+    width: 50px;
+}
