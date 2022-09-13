@@ -1,7 +1,8 @@
-from fastapi import APIRouter
+import email
+from fastapi import APIRouter, Depends
 
 from schemas.users import User
-from cruds.users import signup
+from cruds.users import signup, update_me
 
 router = APIRouter()
 
@@ -16,18 +17,24 @@ def user_signup(email: str, password: str):
     return 
 
 
+def mock_authorize():
+    return User(user_id=1, email="rakuten@sample.com", password="rakuten")
+
+
 @router.get("/me")
-def users_me():
+def users_me(current_user: User = Depends(mock_authorize)):
     """プロフィールの部分
     """
-    pass
+    return current_user
 
 
 @router.patch("/me")
 def patch_me():
     """プロフィールの変更
     """
-    pass
+    user = mock_authorize()
+    update_me(user_id=1, name="rakuten panda")
+    return 
 
 
 @router.get("/{id}")
