@@ -5,7 +5,7 @@ from pydantic import BaseModel, Field
 
 
 class Post(BaseModel):
-    id: int
+    post_id: int
     title: str
     content: str
     url: str
