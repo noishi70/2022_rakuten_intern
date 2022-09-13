@@ -39,7 +39,7 @@
 
 .url {
   display: flex;
-  padding: 0 0 20px 0;
+  padding: 0 0 0 0;
 }
 
 .user_id {
@@ -87,5 +87,17 @@
 }
 
 .openbutton:hover {
+  color: #aaaaaa;
+}
+
+.closebutton {
+  color: #888888;
+  background-color: rgba(0, 0, 0, 0);
+  border: none;
+  display: flex;
+  padding: 20px 0 20px 0;
+}
+
+.closebutton:hover {
   color: #aaaaaa;
 }

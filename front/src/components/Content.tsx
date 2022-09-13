@@ -48,7 +48,7 @@ const Content = (props:Props) => {
             </Grid>
             <Grid item xs={12}>
               { text.length > 21
-                ? ( open ? <button className={Style.openbutton} onClick={() => setOpen(false)}>表示を減らす</button> : <button className={Style.openbutton} onClick={() => setOpen(true)}>続きを表示</button> )
+                ? ( open ? <button className={Style.closebutton} onClick={() => setOpen(false)}>表示を減らす</button> : <button className={Style.openbutton} onClick={() => setOpen(true)}>続きを表示</button> )
                 : null 
               }
             </Grid>
