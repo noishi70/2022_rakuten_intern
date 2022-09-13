@@ -24,7 +24,7 @@ class User(Base):
     comment = Column(String(512))
     hashed_password = Column(String(512), nullable=False)
 
-    post = relationship("Post", back_populates="users")
+    # post = relationship("Post", back_populates="users")
 
 
 class Post(Base):
@@ -37,6 +37,7 @@ class Post(Base):
     datetime = Column(DateTime, default=datetime.now().time(), nullable=False)
     duration = Column(Integer)
     created_by = Column(Integer, ForeignKey("users.id"), nullable=False)
+    
 
 
 # class ProvisionalUser(Base):
