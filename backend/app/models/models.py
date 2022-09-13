@@ -4,6 +4,7 @@ from sqlalchemy.orm import relationship
 
 from db import Base
 
+# TODO: ID => UUID
 
 class UserFavoritePost(Base):
     """User がお気に入りに登録した Post
@@ -16,6 +17,7 @@ class UserFavoritePost(Base):
 class User(Base):
     __tablename__ = "users"
 
+    # TODO: UUID
     user_id = Column(Integer, primary_key=True)
     name = Column(String(32), nullable=False)
     email = Column(String(32), nullable=False)

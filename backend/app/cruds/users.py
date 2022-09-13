@@ -17,7 +17,9 @@ def signup(email: str, hashed_password: str) -> None:
 
     return
 
+# TODO: user を id からゲットするやつ
 
+# TODO: me なので 認可状態で
 def update_me(
     user_id: int,
     name: Optional[str] = "", 

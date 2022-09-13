@@ -4,6 +4,9 @@ from datetime import datetime
 from pydantic import BaseModel, Field
 
 
+
+# TODO: ID => UUID
+
 class Post(BaseModel):
     post_id: int
     title: str

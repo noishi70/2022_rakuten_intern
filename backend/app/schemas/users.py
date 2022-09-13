@@ -3,6 +3,7 @@ from typing import Optional
 from pydantic import BaseModel, Field
 
 
+# TODO: ID => UUID
 class User(BaseModel):
     user_id: int 
     name: Optional[str] = Field(None)
