@@ -17,6 +17,7 @@ def user_signup(email: str, password: str):
     return 
 
 
+## 本当は, /users/me はトークンで current_user 的なのになる (要サーベイ)
 def mock_authorize():
     return User(user_id=1, email="rakuten@sample.com", password="rakuten")
 
@@ -34,7 +35,9 @@ def patch_me():
     """
     user = mock_authorize()
     update_me(user_id=1, name="rakuten panda")
-    return 
+    return
+
+# ここまで
 
 
 @router.get("/{id}")
