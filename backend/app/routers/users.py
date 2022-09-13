@@ -1,12 +1,19 @@
 from fastapi import APIRouter
 
+from schemas.users import User
+from cruds.users import signup
+
 router = APIRouter()
 
 @router.post("/signup")
-def users_signup():
-    """サインアップする機能
+def user_signup(email: str, password: str):
     """
-    pass
+
+    Args:
+        user (User): _description_
+    """
+    signup(email, password)
+    return 
 
 
 @router.get("/me")
