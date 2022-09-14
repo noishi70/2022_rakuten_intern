@@ -2,23 +2,38 @@ import email
 import hashlib
 from fastapi import APIRouter, Depends
 
-from schemas.users import User
+from schemas.users import User, CreateUser
 from cruds.users import signup, update_me
+from libs.auth import get_current_user
 
 router = APIRouter(
     tags=["users"]
 )
 
+@router.get("/me", response_model=User)
+async def read_users_me(current_user: User = Depends(get_current_user)):
+    """ログイン中ユーザを取得
+
+    Args:
+        current_user (User, optional): トークンにより現在のユーザを取得
+
+    Returns:
+        User: 現在のユーザ
+    """
+    return current_user
+
 @router.post("/signup")
-def user_signup(email: str, password: str):
+def user_signup(
+    create_user: CreateUser,
+):
     """サインアップする機能
 
     Args:
         email (str): emailアドレス
         password (str): パスワード
     """
-    hashed_password = hashlib.md5(password.encode()).hexdigest()
-    signup(email=email, hashed_password=hashed_password)
+    hashed_password = hashlib.md5(create_user.password.encode()).hexdigest()
+    signup(email=create_user.email, hashed_password=hashed_password)
     return 
 
 

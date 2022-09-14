@@ -92,14 +92,3 @@ async def login(form: OAuth2PasswordRequestForm = Depends()):
     return create_tokens(user.user_id)
 
 
-@router.get("/users/me/", response_model=schemas.users.User)
-async def read_users_me(current_user: User = Depends(get_current_user)):
-    """ログイン中ユーザを取得
-
-    Args:
-        current_user (User, optional): トークンにより現在のユーザを取得
-
-    Returns:
-        User: 現在のユーザ
-    """
-    return current_user
