@@ -5,7 +5,9 @@ from fastapi import APIRouter, Depends
 from schemas.users import User
 from cruds.users import signup, update_me
 
-router = APIRouter()
+router = APIRouter(
+    tags=["users"]
+)
 
 @router.post("/signup")
 def user_signup(email: str, password: str):
