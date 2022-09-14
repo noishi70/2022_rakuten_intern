@@ -16,9 +16,9 @@ def favorite_post_lists(user_id: str) -> Post:
     """
     favs = session.query(UserFavoritePost).filter(UserFavoritePost.user_id==user_id).all()
     posts = [session.query(Post).filter(Post.post_id==fav.post_id).first() for fav in favs]
-    session.commit()
-    session.close()
 
+    session.close()
+    
     return posts
 
 
