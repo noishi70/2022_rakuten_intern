@@ -1,4 +1,4 @@
-from typing import Optional, List
+from typing import Optional
 
 from fastapi import APIRouter, Depends, status, HTTPException
 
@@ -28,17 +28,23 @@ def post_post(
         duration (int): 所要時間
     """
     try:
-        create_post(title=create_post_body.title, content=create_post_body.content, url=create_post_body.url, duration=create_post_body.duration, created_by=current_user.user_id)
+        create_post(
+            title=create_post_body.title, 
+            content=create_post_body.content, 
+            url=create_post_body.url, 
+            duration=create_post_body.duration, 
+            user_id=current_user.user_id,
+        )
     except:
-        raise HTTPException(status_code=409, detail="Can't regist your post")
-    return {"message": "succses"}
+        raise HTTPException(status_code=409, detail="Can't register your post")
+    return {"message": "success"}
 
-@router.get("/posts", response_model=List[schemas.posts.Post])
+@router.get("/posts", response_model=list[schemas.posts.Post])
 def get_posts(
     key_word: Optional[str] = None, 
     time: Optional[int] = None,
     current_user: User = Depends(get_current_user)
-)-> list[Post]:
+)-> list[schemas.posts.Post]:
     """投稿を取得するエンドポイント
 
     Args:
@@ -48,5 +54,7 @@ def get_posts(
     Returns:
         list[Post]: 投稿の一覧
     """
-    posts = fetch_posts()
-    return posts
+    posts = fetch_posts(key_word, time)
+    # TODO: ここの実装
+    res_posts = [schemas.posts.Post(**post.to_dict(), name="", icon="") for post in posts]
+    return res_posts
