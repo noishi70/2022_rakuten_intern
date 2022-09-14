@@ -34,12 +34,12 @@ async def read_users_me(current_user: User = Depends(get_current_user)):
     users_posts = []
     for p in posts:
         users_post = schemas.posts.UsersPost(
-            id=p.post_id.v,
-            title=p.title.v,
-            content=p.content.v,
-            url=p.url.v,
-            time=p.duration.v,
-            datetime=p.datetime.v,
+            id=p.post_id,
+            title=p.title,
+            content=p.content,
+            url=p.url,
+            time=p.duration,
+            datetime=p.datetime,
         )
         
         users_posts.append(users_post)
@@ -49,10 +49,10 @@ async def read_users_me(current_user: User = Depends(get_current_user)):
     res_data = UserAndPosts(
         user_id=str(user.user_id),
         name=str(user.name),
-        header_img=str(head_img),
-        icon=str(img),
+        header_img=head_img,
+        icon=img,
         comment=str(user.comment),
-        email=user.email.v,
+        email=user.email,
         follows=followers,
         followers=followees,
         posts=users_posts
@@ -135,8 +135,8 @@ def get_user(
     res_data = UserAndPosts(
         user_id=str(user.user_id),
         name=str(user.name),
-        header_img=str(head_img),
-        icon=str(img),
+        header_img=head_img,
+        icon=img,
         comment=str(user.comment),
         email=user.email.v,
         follows=followers,
