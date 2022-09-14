@@ -25,7 +25,7 @@ class CreatePost(BaseModel):
     title: str
     content: str
     url: str
-    duration: str
+    duration: int
 
 
 class UsersPost(BaseModel):
