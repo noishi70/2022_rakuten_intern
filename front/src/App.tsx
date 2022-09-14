@@ -8,16 +8,25 @@ import Profile from './components/Profile';
 import ProfileFix from './components/ProfileFix';
 import Footer from './components/footer/Footer';
 import Search from './components/Search'
+import Post from './components/Post';
 
 type Key = {
   Word: string;
   time: number | null;
-}
+};
+
+type Content = {
+    title: string;
+    url: string ;
+    time: number;
+    text: string;
+};
 
 const App: any = () => {
   const [page, setPage] = useState('/');
   const [mode, setMode] = useState('/');
   const [search, setSearch] = useState<Key>({Word: '', time: null});
+  const [content, setContent] = useState<Content>({title: "", url: "", time: 0, text: ""})
 
   const content_info = {
     user_id: 0,
@@ -89,6 +98,13 @@ const App: any = () => {
       <ProfileFix {...profileFix_info} />
       <Footer {...footer_info} />
       <Search {...search_info} />
+      <p>{value.word}</p>
+      <p>{value.time}</p>
+      <Post setContent = {setContent}/>
+      <p>{content.title}</p>
+      <p>{content.text}</p>
+      <p>{content.url}</p>
+      <p>{content.time}</p>
     </div>
   );
 }
