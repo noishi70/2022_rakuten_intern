@@ -43,12 +43,13 @@ async def read_users_me(current_user: User = Depends(get_current_user)):
         )
         
         users_posts.append(users_post)
-
+        
+    head_img = change_imag_to_base64(str(user.header_img))
     img = change_imag_to_base64(str(user.icon))
     res_data = UserAndPosts(
         user_id=str(user.user_id),
         name=str(user.name),
-        header_img=str(user.header_img),
+        header_img=str(head_img),
         icon=str(img),
         comment=str(user.comment),
         email=user.email.v,
@@ -73,21 +74,6 @@ def user_signup(
     hashed_password = hashlib.md5(create_user.password.encode()).hexdigest()
     signup(user_id=user_id, email=create_user.email, hashed_password=hashed_password)
     return 
-
-
-# ## 本当は, /users/me はトークンで current_user 的なのになる (要サーベイ)
-# def mock_authorize():
-#     return User(user_id=1, email="rakuten@sample.com", password="rakuten")
-
-
-# @router.get("/me")
-# def users_me(current_user: User = Depends(mock_authorize)):
-#     """プロフィールの部分
-#     """
-#     return current_user
-
-
-# ここまで
 
 @router.patch("/me", response_model=User)
 def patch_me(patch_user: PatchUser, current_user: User = Depends(get_current_user)):
@@ -116,7 +102,7 @@ def patch_me(patch_user: PatchUser, current_user: User = Depends(get_current_use
 
 
 
-@router.get("/{id}", response_model=UserAndPosts)
+@router.get("/{user_id}", response_model=UserAndPosts)
 def get_user(
     user_id: str,
     current_user: User = Depends(get_current_user)
@@ -128,8 +114,37 @@ def get_user(
     """
     user = get_user_by_id(user_id=user_id)
     posts = fetch_posts_by_id(user_id=user_id)
+    followers = count_followers(user_id=user_id)
+    followees = count_followees(user_id=user_id)
 
-    return 
+    users_posts = []
+    for p in posts:
+        users_post = schemas.posts.UsersPost(
+            id=p.post_id.v,
+            title=p.title.v,
+            content=p.content.v,
+            url=p.url.v,
+            time=p.duration.v,
+            datetime=p.datetime.v,
+        )
+        
+        users_posts.append(users_post)
+
+    img = change_imag_to_base64(str(user.icon))
+    head_img = change_imag_to_base64(str(user.header_img))
+    res_data = UserAndPosts(
+        user_id=str(user.user_id),
+        name=str(user.name),
+        header_img=str(head_img),
+        icon=str(img),
+        comment=str(user.comment),
+        email=user.email.v,
+        follows=followers,
+        followers=followees,
+        posts=users_posts
+    )
+
+    return res_data
 
 
 
