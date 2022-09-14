@@ -1,15 +1,21 @@
-from typing import Optional
+from typing import Optional, List
 
-from fastapi import APIRouter
+from fastapi import APIRouter, Depends, status, HTTPException
 
 from cruds.posts import  create_post,fetch_posts
 from models.models import Post 
+from schemas.users import User
+from schemas.posts import CreatePost, Post
+from libs.auth import get_current_user
 
 router = APIRouter()
 
 
-@router.post("/posts")
-def post_post(title: str, content: str, url: str, duration: int):
+@router.post("/posts", status_code=status.HTTP_200_OK)
+def post_post(
+    create_post_body: CreatePost,
+    current_user: User = Depends(get_current_user)
+):
     """"投稿を新規作成するエンドポイント
 
     Args:
@@ -18,11 +24,18 @@ def post_post(title: str, content: str, url: str, duration: int):
         url (str): 投稿のURL
         duration (int): 所要時間
     """
-    create_post(title=title, content=content, url=url, duration=duration, created_by=1)
-    return 
+    try:
+        create_post(title=create_post_body.title, content=create_post_body.content, url=create_post_body.url, duration=create_post_body.duration, created_by=current_user.user_id)
+    except:
+        raise HTTPException(status_code=409, detail="Can't regist your post")
+    return {"message": "succses"}
 
-@router.get("/posts")
-def get_posts(key_word: Optional[str] = None, time: Optional[int] = None) -> list[Post]:
+@router.get("/posts", response_model=List[Post])
+def get_posts(
+    key_word: Optional[str] = None, 
+    time: Optional[int] = None,
+    current_user: User = Depends(get_current_user)
+)-> list[Post]:
     """投稿を取得するエンドポイント
 
     Args:

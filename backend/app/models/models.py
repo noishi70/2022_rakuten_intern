@@ -39,6 +39,17 @@ class Post(Base):
     datetime = Column(DateTime, default=datetime.now(), nullable=False)
     duration = Column(Integer)
     created_by = Column(String, ForeignKey("users.user_id"), nullable=False)
+
+    def to_dict(self):
+        return {
+            "post_id": self.post_id,
+            "title": self.title,
+            "content": self.content,
+            "url": self.url,
+            "datetime": self.datetime,
+            "duration": self.duration,
+            "created_by": self.created_by
+        }
     
 
 
