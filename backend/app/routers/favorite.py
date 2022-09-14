@@ -7,7 +7,7 @@ from models.models import Post as models_post
 from cruds.favorite import favorite_post_lists, give_favorite, del_favorite
 
 
-router = APIRouter(tags=["favorites"])
+router = APIRouter(tags=["favorite"])
 
 @router.get("/users/favorite")
 async def fetch_favorite_posts(current_user: User = Depends(get_current_user)):
