@@ -1,7 +1,12 @@
+
 .headimg {
-    width: 100%;
-    height: 300px;
+    width: 100vw;
+    height: 30vw;
     object-fit: cover;
+}
+.bodyelem {
+    width: 75%;
+    margin: 0 auto;
 }
 
 .iconimage {
@@ -42,6 +47,8 @@
 
 .profileintro{
     overflow-wrap: break-word;
+    margin-left: 5%;
+    margin-right: 5%;
 }
 
 .followfollower {
