@@ -24,23 +24,23 @@ const ProfileFix = (props:Props) => {
   const headerChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const files = event.target.files;
     const reader = new FileReader();
-    files && files[0] ? (
-      reader.readAsDataURL(files[0]),
-      reader.onload = () => {
-        setBase64Header( typeof reader.result === 'string' ?  reader.result : '');
-      }
-    ) : null;
+    if (files && files[0]) {
+      reader.readAsDataURL(files[0]);
+    }
+    reader.onload = () => {
+      setBase64Header( typeof reader.result === 'string' ?  reader.result : '');
+    }
   }
 
   const iconChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const files = event.target.files;
     const reader = new FileReader();
-    files && files[0] ? (
-      reader.readAsDataURL(files[0]),
-      reader.onload = () => {
-        setBase64Icon( typeof reader.result === 'string' ?  reader.result : '');
-      }
-    ) : null;
+    if (files && files[0]) {
+      reader.readAsDataURL(files[0]);
+    }
+    reader.onload = () => {
+      setBase64Icon( typeof reader.result === 'string' ?  reader.result : '');
+    }
   }
 
   return (
@@ -49,7 +49,7 @@ const ProfileFix = (props:Props) => {
         <TextField fullWidth label='名前' variant='standard' />
       </Card>
       <Card>
-        <TextField fullWidth multiline rows={3} label='自己紹介' variant='standard' />
+        <TextField fullWidth multiline rows={3} label='自己紹�?' variant='standard' />
       </Card>
       <Card>
         ヘッダー

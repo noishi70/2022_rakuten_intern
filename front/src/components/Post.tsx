@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import {TextField, Button , IconButton, Stack} from "@mui/material";
 import CancelOutlinedIcon from '@mui/icons-material/CancelOutlined';
-import styled from 'styled-components';
-import STYLES from '../styles/const';
+import Style from './Post.module.css';
 
 type Content = {
   title: string;
@@ -40,179 +39,65 @@ export default function Search(props: Props){
   return(
     <>
 
-    <Wrapper>
-    <Head>
-    <IconWrapper>
-      <IconButton  aria-label="Search" size="large">
-        <CancelOutlinedIcon />
-      </IconButton>
-    </IconWrapper>
-    </Head>
-    <Body>
-      <User>
-        <img src="https://placehold.jp/3d4070/ffffff/150x150.png"/>
-      </User>
-      <Form>
-      <Stack spacing={2}>
-        <TextField
-                  id="search-keyword"
-                  label="タイトル"
-                  variant="standard"
-                  value={tweet.title}
-                  rows = {1}
-                  onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) => handleTitleChange(event)}
-        />
-        <TextField
-                  id="search-keyword"
-                  label="内容"
-                  variant="standard"
-                  value={tweet.text}
-                  multiline = {true}
-                  rows = {5}
-                  onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) => handleTextChange(event)}
-                  
-        />
-        <TextField
-                  id="search-keyword"
-                  label="URL"
-                  variant="standard"
-                  value={tweet.url}
-                  rows = {1}
-                  onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) => handleURLChange(event)}
-        />
-        <TextField
-                  id="search-keyword"
-                  label="所要時間"
-                  variant="standard"
-                  value={tweet.time}
-                  rows = {1}
-                  onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) => handleTimeChange(event)}
-        />
-      </Stack>
-      <FormTail>
-            <ButtonWrapper>
+    <div className={Style.div.Wrapper}>
+      <div className={Style.div.Head}>
+        <div className={Style.div.IconWrapper}>
+          <IconButton  aria-label="Search" size="large" className={Style.button.CloseButton}>
+            <CancelOutlinedIcon className={Style.button.CloseButton.svg} />
+          </IconButton>
+        </div>
+      </div>
+      <div className={Style.div.Body}>
+        <div className={Style.div.User}>
+          <img src="https://placehold.jp/3d4070/ffffff/150x150.png" className={Style.div.User.img} />
+        </div>
+        <div className={Style.div.Form}>
+          <Stack spacing={2} className={Style.div.Form}>
+            <TextField
+                      className={Style.div.FormText}
+                      id="search-keyword"
+                      label="タイトル"
+                      variant="standard"
+                      value={tweet.title}
+                      rows = {1}
+                      onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) => handleTitleChange(event)}
+            />
+            <TextField
+                      id="search-keyword"
+                      label="内容"
+                      variant="standard"
+                      value={tweet.text}
+                      multiline = {true}
+                      rows = {5}
+                      onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) => handleTextChange(event)}
+                      
+            />
+            <TextField
+                      id="search-keyword"
+                      label="URL"
+                      variant="standard"
+                      value={tweet.url}
+                      rows = {1}
+                      onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) => handleURLChange(event)}
+            />
+            <TextField
+                      id="search-keyword"
+                      label="所用時間"
+                      variant="standard"
+                      value={tweet.time}
+                      rows = {1}
+                      onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) => handleTimeChange(event)}
+            />
+          </Stack>
+          <div className={Style.div.FormTail}>
+            <button className={Style.button.ButtonWrapper}>
               <Button variant="text" onClick={() => output()}> 投稿 </Button>
-            </ButtonWrapper>
-          </FormTail>
-      </Form>
-    </Body>
-    </Wrapper>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
     </>
     
   );
 }
-
-
-
-const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 100vw;
-  height: 60vh;
-  background-color: ${STYLES.COLOR.WHITE};
-  @media ${STYLES.DEVICE.LAPTOP} {
-    display: flex;
-    flex-direction: column;
-    width: 600px;
-    height: 295px;
-    background-color: ${STYLES.COLOR.WHITE};
-    border-radius: 14px;
-  }
-`;
-
-const Head = styled.div`
-  height: 60px;
-  padding: 0 15px;
-  border-bottom: solid 1px ${STYLES.COLOR.GRAY_LIGHTER_20};
-`;
-
-const IconWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  height: 100%;
-`;
-
-const CloseButton = styled.button`
-  width: 38px;
-  height: 38px;
-  padding: 8px;
-  border-radius: 50%;
-  &:hover {
-    background-color: ${STYLES.COLOR.PRIMARY_LIGHTER_30};
-  }
-  &:active {
-    background-color: ${STYLES.COLOR.PRIMARY_LIGHTER_20};
-  }
-  svg {
-    width: 100%;
-    height: 100%;
-    fill: ${STYLES.COLOR.PRIMARY};
-  }
-`;
-
-const Body = styled.div`
-  display: flex;
-  flex: 1;
-  padding: 10px 15px;
-`;
-
-const User = styled.div`
-  width: 50px;
-  margin-right: 5px;
-  img {
-    width: 50px;
-    height: 50px;
-    pointer-events: none;
-    user-select: none;
-    border-radius: 50%;
-  }
-`;
-
-const Form = styled.div`
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-`;
-
-const FormText = styled.div`
-  flex: 1;
-  textarea {
-    width: 100%;
-    height: 100%;
-    font-size: 19px;
-    line-height: 1.3;
-  }
-`;
-
-const FormLine = styled.div`
-  flex: 1;
-  textarea {
-    width: 100%;
-    height: 40%;
-    font-size: 19px;
-    line-height: 1.3;
-  }
-  textfiled {
-    width: 100%;
-    height: 40%;
-    font-size: 19px;
-    line-height: 1.3;
-  }
-
-`;
-
-const FormTail = styled.div`
-  display: flex;
-  align-items: flex-end;
-  justify-content: flex-end;
-  height: 50px;
-`;
-
-const ButtonWrapper = styled.div`
-  width: 150px;
-  height: 40px;
-`;
-
-const WordCounter = styled.div`
-  margin: 10px;
-`;

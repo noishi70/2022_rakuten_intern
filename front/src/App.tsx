@@ -11,7 +11,7 @@ import Search from './components/Search'
 import Post from './components/Post';
 
 type Key = {
-  Word: string;
+  word: string;
   time: number | null;
 };
 
@@ -25,7 +25,7 @@ type Content = {
 const App: any = () => {
   const [page, setPage] = useState('/');
   const [mode, setMode] = useState('/');
-  const [search, setSearch] = useState<Key>({Word: '', time: null});
+  const [search, setSearch] = useState<Key>({word: '', time: null});
   const [content, setContent] = useState<Content>({title: "", url: "", time: 0, text: ""})
 
   const content_info = {
@@ -98,8 +98,8 @@ const App: any = () => {
       <ProfileFix {...profileFix_info} />
       <Footer {...footer_info} />
       <Search {...search_info} />
-      <p>{value.word}</p>
-      <p>{value.time}</p>
+      <p>{search.word}</p>
+      <p>{search.time}</p>
       <Post setContent = {setContent}/>
       <p>{content.title}</p>
       <p>{content.text}</p>

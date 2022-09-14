@@ -1,6 +1,6 @@
-import {ChangeEvent, useState} from "react";
+import { ChangeEvent, useState } from "react";
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
-import {TextField, Box , IconButton, Stack, Container} from "@mui/material";
+import { TextField, IconButton, Stack, Container } from "@mui/material";
 
 type Key = {
   word: string;
@@ -49,7 +49,7 @@ export default function Search(props: Props){
               />
           <TextField
               id="search-keyword"
-              label="所要時間"
+              label="所要時�?"
               variant="standard"
               value={searchTimeValue}
               onChange={(event: React.ChangeEvent<HTMLInputElement>) => changeSearchedValueHandler(event)}
