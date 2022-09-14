@@ -1,5 +1,6 @@
 import React from "react";
 import "./Profile.css";
+import Button from '@mui/material/Button';
 
 type props = {
   user_id: number;
@@ -22,7 +23,7 @@ const Profile = (props: props) => {
             <img src={'data:image/png;base64,'+props.icon} className="iconimage" alt="icon" />
             <div className="username">{props.name}</div>
           </div>
-          <button onClick={() => props.setValue?.('send')} className="profilebutton">プロフィール編集</button>
+          <Button onClick={() => props.setValue?.("send")} variant="contained" color="primary">プロフィール編集</Button>
         </div>
 
         <div className="profile">
