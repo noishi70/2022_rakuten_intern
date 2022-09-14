@@ -5,6 +5,7 @@
   position: fixed;
   top: 0;
   box-shadow: 0 0 10px 0 rgba(40, 44, 52, 0.8);
+  z-index: 10;
 }
 
 .img {

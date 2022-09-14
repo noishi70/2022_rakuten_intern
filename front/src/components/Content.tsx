@@ -1,4 +1,4 @@
-import { Grid } from '@mui/material';
+import { Grid, IconButton } from '@mui/material';
 import React, { useState } from 'react';
 import Style from './Content.module.css';
 
@@ -25,7 +25,7 @@ const Content = (props:Props) => {
       <Grid container spacing={1}>
         <Grid item xs={3}>
           <Grid style={{ height: "100%" }}>
-            <img src={'data:image/png;base64,' + props.icon} alt='icon' className={Style.img} onClick={() => props.setValue?.('MyProfile')}/>
+            <img src={props.icon} alt='icon' className={Style.img} onClick={() => props.setValue?.('Profile@' + props.user_id)} />
           </Grid>
         </Grid>
         <Grid item xs={9}>
@@ -48,7 +48,7 @@ const Content = (props:Props) => {
             </Grid>
             <Grid item xs={12}>
               { text.length > 21
-                ? ( open ? <button className={Style.closebutton} onClick={() => setOpen(false)}>表示を減ら�?</button> : <button className={Style.openbutton} onClick={() => setOpen(true)}>続きを表示</button> )
+                ? ( open ? <button className={Style.closebutton} onClick={() => setOpen(false)}>表示を減らす</button> : <button className={Style.openbutton} onClick={() => setOpen(true)}>続きを表示</button> )
                 : null 
               }
             </Grid>

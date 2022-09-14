@@ -1,4 +1,4 @@
-import { Input, TextField } from '@mui/material';
+import { Card, Input, TextField } from '@mui/material';
 import React, { useState } from 'react';
 import Style from './Content.module.css';
 
@@ -45,18 +45,22 @@ const ProfileFix = (props:Props) => {
 
   return (
     <div className={Style.content}>
-      <TextField fullWidth label='名前' variant='standard' />
-      <TextField fullWidth multiline rows={3} label='自己紹介' variant='standard' />
-      <div>
+      <Card>
+        <TextField fullWidth label='名前' variant='standard' />
+      </Card>
+      <Card>
+        <TextField fullWidth multiline rows={3} label='自己紹介' variant='standard' />
+      </Card>
+      <Card>
         ヘッダー
         <Input type='file' onChange={(e: React.ChangeEvent<HTMLInputElement>) => headerChange(e)} />
         <img src={base64Header} alt='preview'/>
-      </div>
-      <div>
+      </Card>
+      <Card>
         アイコン
         <Input type='file' onChange={(e: React.ChangeEvent<HTMLInputElement>) => iconChange(e)} />
         <img src={base64Icon} alt='preview'/>
-      </div>
+      </Card>
     </div>
   );
 }
