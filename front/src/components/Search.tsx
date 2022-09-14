@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import {ChangeEvent, useState} from "react";
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
 import {TextField, Box , IconButton, Stack, Container} from "@mui/material";
 
@@ -8,14 +8,14 @@ type Key = {
 }
 
 type Props = {
-  setValue:  (arg:Key) => void,
-}
+  setValue?: (key: Key) => void;
+};
 
 export default function Search(props: Props){
   const [searchWordValue, setSearchWordValue] = useState<string>("");
   const [searchTimeValue, setSearchTimeValue] = useState<number>(0);
 
-  
+ 
 
   const changeSearchedWordHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     //console.log(event.target.value);
@@ -25,14 +25,13 @@ export default function Search(props: Props){
     if(!isNaN(Number(event.target.value))){
       setSearchTimeValue(Number(event.target.value));
     }
-    
   }
   const handleSearch = () => {
     const newKey: Key = {
       word: searchWordValue,
       time: searchTimeValue,
     }
-    props.setValue(newKey);
+    props.setValue?.(newKey);
   }
 
   return (

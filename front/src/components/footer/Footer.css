@@ -1,0 +1,14 @@
+.footer {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.iconbutton {
+    border: none;
+    background:transparent;
+}
+
+.icon {
+    height: 50px;
+    width: 50px;
+}
