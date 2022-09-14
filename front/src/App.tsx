@@ -1,10 +1,15 @@
+import { Grid } from '@mui/material';
 import React, {useState} from 'react';
-import './App.css';
+import Style from './App.module.css';
 
+import Header from './components/Header';
 import Content from './components/Content'
+import ProfileFix from './components/ProfileFix';
+
 
 const App: any = () => {
   const [page, setPage] = useState('/');
+  const [mode, setMode] = useState('/');
 
   const info = {
     user_id: 0,
@@ -16,11 +21,33 @@ const App: any = () => {
     url: 'urlurlurlurl',
     time: 2,
     datetime: '2022/09/13',
+    setValue: setPage,
   }
 
   return (
     <div>
-      <Content {...info} setValue={useState} />
+      <Header icon={info.icon} setPage={setPage} setMode={setMode}/>
+      <Grid container className={Style.content}>
+        <Grid item xs={12} sm={6} md={4} lg={3} xl={2}>
+          <Content {...info} setValue={useState} />
+        </Grid>
+        <Grid item xs={12} sm={6} md={4} lg={3} xl={2}>
+          <Content {...info} setValue={useState} />
+        </Grid>
+        <Grid item xs={12} sm={6} md={4} lg={3} xl={2}>
+          <Content {...info} setValue={useState} />
+        </Grid>
+        <Grid item xs={12} sm={6} md={4} lg={3} xl={2}>
+          <Content {...info} setValue={useState} />
+        </Grid>
+        <Grid item xs={12} sm={6} md={4} lg={3} xl={2}>
+          <Content {...info} setValue={useState} />
+        </Grid>
+        <Grid item xs={12} sm={6} md={4} lg={3} xl={2}>
+          <Content {...info} setValue={useState} />
+        </Grid>
+      </Grid>
+      <ProfileFix header={''} icon={info.icon} name={info.name} comment={'commentcomment'}/>
     </div>
   );
 }
