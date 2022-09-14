@@ -1,24 +1,33 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
+import Search from './components/Search';
+import Post from './components/Post';
 
 function App() {
+  const [value, setValue] = useState<Key>({word: "",time: null})
+  const [content, setContent] = useState<Content>({title: "", url: "", time: 0, text: ""})
+
+  type Key = {
+    word: string;
+    time: number | null;
+  }
+  type Content = {
+    title: string;
+    url: string ;
+    time: number;
+    text: string;
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Search setValue = {setValue}/>
+      <p>{value.word}</p>
+      <p>{value.time}</p>
+      <Post setContent = {setContent}/>
+      <p>{content.title}</p>
+      <p>{content.text}</p>
+      <p>{content.url}</p>
+      <p>{content.time}</p>
     </div>
   );
 }
