@@ -21,7 +21,7 @@ def signup(email: str, hashed_password: str) -> None:
 
 # TODO: me なので 認可状態で
 def update_me(
-    user_id: int,
+    user_id: str,
     name: Optional[str] = "", 
     header_img: Optional[str] = None,
     icon: Optional[str] = None, 

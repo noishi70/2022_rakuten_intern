@@ -46,7 +46,7 @@ def user_signup(email: str, password: str):
 
 
 @router.get("/{id}")
-def get_user(id: int):
+def get_user(id: str):
     """ID で指定したユーザを返す
 
     Args:
@@ -68,10 +68,10 @@ def get_favorites():
 
 
 @router.post("/favorite")
-def favorites(id: int):
+def favorites(id: str):
     pass
 
 
 @router.delete("/favorite")
-def delete_favorites(id: int):
+def delete_favorites(id: str):
     pass

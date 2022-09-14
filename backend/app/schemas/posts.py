@@ -8,7 +8,7 @@ from pydantic import BaseModel, Field
 # TODO: ID => UUID
 
 class Post(BaseModel):
-    post_id: int
+    post_id: str
     title: str
     content: str
     url: str
