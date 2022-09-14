@@ -10,10 +10,10 @@ def save_icon_imag(
     img: str,
     old_path: str
 ):
-    img_binary = base64.b64decode(img)
+    img_binary = base64.urlsafe_b64decode(img + '=' * (-len(img) % 4))
     jpg=np.frombuffer(img_binary,dtype=np.uint8)
     img = cv2.imdecode(jpg, cv2.IMREAD_COLOR)
-    if old_path != './img/defalut.jpg':
+    if old_path != './img/defalut_icon.jpg' or old_path != './img/defalut_header.jpg':
         os.remove(old_path)
     path = './img/' + str(uuid.uuid4()) + '.jpg' 
     cv2.imwrite(path, img)
