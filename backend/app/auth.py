@@ -42,7 +42,7 @@ def authenticate(email: str, password: str) -> User:
     hashed_password = hashlib.md5(password.encode()).hexdigest()
     user = session.query(User).filter(User.email==email).first()
     session.close()
-    if user.hashed_password != hashed_password:
+    if user is None or user.hashed_password != hashed_password:
         raise HTTPException(status_code=401, detail='Incorrect password')
     
     return user
