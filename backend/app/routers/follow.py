@@ -19,7 +19,7 @@ def follow_users(
     )
     return
 
-@router.delete('/user/follow')
+@router.delete('/users/follow')
 def delete_follow(
     followee: CreateFollow,
     follower: User = Depends(get_current_user),
