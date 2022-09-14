@@ -2,20 +2,28 @@ import React from "react";
 import HeadImg from "../../back.jpg";
 import "./Profile.css";
 
-const Profile = () => {
+type props = {
+  user_id: number;
+  name: string;
+  icon: string;
+  header: string;
+  setValue?: (value: string) => void;
+};
+
+const Profile = (props: props) => {
   return (
     <>
       <div className="head">
-        <img src={HeadImg} className="headimg" alt="Header" />
+        <img src={'data:image/png;base64,'+props.header} className="headimg" alt="Header" />
       </div>
-      
+
       <div className="bodyelem">
         <div className="row">
           <div className="iconname">
-            <img src={HeadImg} className="iconimage" alt="icon" />
-            <div className="username">UserName</div>
+            <img src={'data:image/png;base64,'+props.icon} className="iconimage" alt="icon" />
+            <div className="username">{props.name}</div>
           </div>
-          <button className="profilebutton">プロフィール編集</button>
+          <button onClick={() => props.setValue?.('send')} className="profilebutton">プロフィール編集</button>
         </div>
 
         <div className="profile">
