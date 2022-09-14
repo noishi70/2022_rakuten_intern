@@ -55,6 +55,5 @@ def get_posts(
         list[Post]: 投稿の一覧
     """
     posts = fetch_posts(key_word, time)
-    # TODO: ここの実装
     res_posts = [schemas.posts.Post(**post.to_dict(), name="", icon="") for post in posts]
     return res_posts
