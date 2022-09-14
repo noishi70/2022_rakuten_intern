@@ -1,30 +1,35 @@
-import {useState} from "react";
+import {ChangeEvent, useState} from "react";
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
 import {TextField, Box , IconButton} from "@mui/material";
 
+type Key = {
+  Word: string;
+  time: number | null;
+}
 
-export default function Search(props){
+type Props = {
+  setValue?: (key: Key) => void;
+};
+
+export default function Search(props: Props){
   const [searchWordValue, setSearchWordValue] = useState<string>("");
   const [searchTimeValue, setSearchTimeValue] = useState<number | null>(null);
 
-  type Key = {
-    Word: string;
-    time: number | null;
-  }
+  
 
-  const changeSearchedWordHandler = (event) => {
+  const changeSearchedWordHandler = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     //console.log(event.target.value);
     setSearchWordValue(event.target.value);
   }
-  const changeSearchedValueHandler = (event) => {
-    setSearchTimeValue(event.target.value);
+  const changeSearchedValueHandler = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setSearchTimeValue(parseInt(event.target.value));
   }
   const handleSearch = () => {
     const newKey: Key = {
       Word: searchWordValue,
       time: searchTimeValue,
     }
-    props.setValue(newKey);
+    props.setValue?.(newKey);
   }
 
   return (

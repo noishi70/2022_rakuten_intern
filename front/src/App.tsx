@@ -4,14 +4,20 @@ import Style from './App.module.css';
 
 import Header from './components/Header';
 import Content from './components/Content'
-import Profile from './components/Profile/Profile';
+import Profile from './components/Profile';
 import ProfileFix from './components/ProfileFix';
 import Footer from './components/footer/Footer';
+import Search from './components/Search'
 
+type Key = {
+  Word: string;
+  time: number | null;
+}
 
 const App: any = () => {
   const [page, setPage] = useState('/');
   const [mode, setMode] = useState('/');
+  const [search, setSearch] = useState<Key>({Word: '', time: null});
 
   const content_info = {
     user_id: 0,
@@ -52,9 +58,13 @@ const App: any = () => {
     setMode: setMode,
   }
 
+  const search_info = {
+    setValue: setSearch,
+  }
+
   return (
     <div>
-      <Header {...header_info}/>
+      <Header {...header_info} />
       <Grid container className={Style.content}>
         <Grid item xs={12} sm={6} md={4} lg={3} xl={2}>
           <Content {...content_info} setValue={useState} />
@@ -78,6 +88,9 @@ const App: any = () => {
       <Profile {...profile_info} />
       <ProfileFix {...profileFix_info} />
       <Footer {...footer_info} />
+      <Search {...search_info} />
     </div>
   );
 }
+
+export default App;
