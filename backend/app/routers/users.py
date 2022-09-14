@@ -9,6 +9,7 @@ from cruds.users import signup, get_user_by_id
 from cruds.posts import fetch_posts_by_id
 from cruds.follow import count_followers, count_followees
 from libs.auth import get_current_user
+from libs.img import save_icon_imag, change_imag_to_base64
 from db import session
 
 router = APIRouter(
@@ -30,11 +31,33 @@ async def read_users_me(current_user: User = Depends(get_current_user)):
     followers = count_followers(user_id=current_user.user_id)
     followees = count_followees(user_id=current_user.user_id)
 
-    res_data = UserAndPosts(
+    users_posts = []
+    for p in posts:
+        users_post = schemas.posts.UsersPost(
+            id=p.post_id.v,
+            title=p.title.v,
+            content=p.content.v,
+            url=p.url.v,
+            time=p.duration.v,
+            datetime=p.datetime.v,
+        )
         
+        users_posts.append(users_post)
+
+    img = change_imag_to_base64(str(user.icon))
+    res_data = UserAndPosts(
+        user_id=str(user.user_id),
+        name=str(user.name),
+        header_img=str(user.header_img),
+        icon=str(img),
+        comment=str(user.comment),
+        email=user.email.v,
+        follows=followers,
+        followers=followees,
+        posts=users_posts
     )
 
-    return current_user
+    return res_data
 
 @router.post("/signup")
 def user_signup(
@@ -80,9 +103,9 @@ def patch_me(patch_user: PatchUser, current_user: User = Depends(get_current_use
     if patch_user.name:
         me.name = patch_user.name
     if patch_user.header_img:
-        me.header_img = patch_user.header_img
+        me.header_img = save_icon_imag(patch_user.header_img, me.header_img)
     if patch_user.icon:
-        me.icon = patch_user.icon
+        me.icon = save_icon_imag(patch_user.icon, me.icon)
     if patch_user.comment:
         me.comment = patch_user.comment
     
