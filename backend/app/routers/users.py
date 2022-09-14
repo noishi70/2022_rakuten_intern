@@ -1,7 +1,6 @@
-from email import header
 from uuid import uuid4
 import hashlib
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException
 from typing import List
 
 from schemas.users import User, CreateUser, UserAndPosts, PatchUser
@@ -70,6 +69,8 @@ def patch_me(patch_user: PatchUser, current_user: User = Depends(get_current_use
         current_user (User, optional): 現在ログインしているユーザ
     """
     me = get_user_by_id(user_id=current_user.user_id)
+    if not me:
+        raise HTTPException(status_code=409, detail="user not found")
     if patch_user.name:
         me.name = patch_user.name
     if patch_user.header_img:
