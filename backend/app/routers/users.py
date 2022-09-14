@@ -1,9 +1,11 @@
-import email
+from uuid import uuid4
 import hashlib
 from fastapi import APIRouter, Depends
+from typing import List
 
 from schemas.users import User, CreateUser, UserAndPosts
-from cruds.users import signup, update_me
+import schemas.posts
+from cruds.users import signup
 from libs.auth import get_current_user
 
 router = APIRouter(
@@ -33,8 +35,9 @@ def user_signup(
         email (str): emailアドレス
         password (str): パスワード
     """
+    user_id = str(uuid4())
     hashed_password = hashlib.md5(create_user.password.encode()).hexdigest()
-    signup(email=create_user.email, hashed_password=hashed_password)
+    signup(user_id=user_id, email=create_user.email, hashed_password=hashed_password)
     return 
 
 
@@ -61,18 +64,26 @@ def user_signup(
 # ここまで
 
 
-@router.get("/{id}")
-def get_user(id: str):
+@router.get("/{id}", response_model=UserAndPosts)
+def get_user(
+    id: str,
+    current_user: User = Depends(get_current_user)
+):
     """ID で指定したユーザを返す
 
     Args:
-        id (int): ユーザーID
+        id (str): ユーザID
     """
     pass
 
 
-@router.get("/timeline")
-def get_timeline():
-    """タイムライン情報の取得
+@router.get("/timeline", response_model=List[schemas.posts.Post])
+def get_timeline(current_user: User = Depends(get_current_user)):
+    """タイムラインの投稿を取る
+
+    Args:
+        current_user (User, optional): 現在ログインしているユーザ
     """
-    pass
+
+
+    return 
