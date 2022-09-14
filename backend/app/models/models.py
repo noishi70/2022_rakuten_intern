@@ -38,7 +38,7 @@ class Post(Base):
     url = Column(String(512))
     datetime = Column(DateTime, default=datetime.now(), nullable=False)
     duration = Column(Integer)
-    created_by = Column(String(64), ForeignKey("users.user_id"), nullable=False)
+    user_id = Column(String(64), ForeignKey("users.user_id"), nullable=False)
 
     def to_dict(self):
         return {
@@ -48,7 +48,7 @@ class Post(Base):
             "url": self.url,
             "datetime": self.datetime,
             "duration": self.duration,
-            "created_by": self.created_by
+            "user_id": self.user_id
         }
     
 

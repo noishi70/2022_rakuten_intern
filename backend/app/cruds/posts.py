@@ -4,8 +4,8 @@ from db import session
 from models.models import Post
 
 # create
-def create_post(title: str, content: str, url: str, duration: int, created_by: int) -> None:
-    post = Post(title=title, content=content, url=url, duration=duration, created_by=created_by)
+def create_post(title: str, content: str, url: str, duration: int, user_id: int) -> None:
+    post = Post(title=title, content=content, url=url, duration=duration, user_id=user_id)
     
     session.add(post)
     session.commit()

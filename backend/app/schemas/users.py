@@ -1,7 +1,7 @@
 from typing import Optional
 
 from pydantic import BaseModel, Field, EmailStr
-
+from schemas.posts import Post
 
 # TODO: ID => UUID
 class User(BaseModel):
@@ -18,3 +18,7 @@ class User(BaseModel):
 class CreateUser(BaseModel):
     email: EmailStr
     password: str
+
+
+class UserAndPosts(User):
+    posts: list[Post]

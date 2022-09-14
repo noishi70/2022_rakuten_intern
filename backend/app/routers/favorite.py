@@ -1,4 +1,5 @@
 from fastapi import APIRouter, Depends
+from typing import List
 
 from libs.auth import get_current_user
 from schemas.users import User
@@ -9,7 +10,7 @@ from cruds.favorite import favorite_post_lists, give_favorite, del_favorite
 
 router = APIRouter(tags=["favorite"])
 
-@router.get("/users/favorite")
+@router.get("/users/favorite", response_model=List[schemas_post])
 async def fetch_favorite_posts(current_user: User = Depends(get_current_user)):
     posts = favorite_post_lists(current_user.user_id)
     res_posts = [schemas_post(**post.to_dict()) for post in posts]

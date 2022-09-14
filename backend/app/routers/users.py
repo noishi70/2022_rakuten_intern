@@ -2,7 +2,7 @@ import email
 import hashlib
 from fastapi import APIRouter, Depends
 
-from schemas.users import User, CreateUser
+from schemas.users import User, CreateUser, UserAndPosts
 from cruds.users import signup, update_me
 from libs.auth import get_current_user
 
@@ -10,7 +10,7 @@ router = APIRouter(
     tags=["users"]
 )
 
-@router.get("/me", response_model=User)
+@router.get("/me", response_model=UserAndPosts)
 async def read_users_me(current_user: User = Depends(get_current_user)):
     """ログイン中ユーザを取得
 
@@ -20,6 +20,7 @@ async def read_users_me(current_user: User = Depends(get_current_user)):
     Returns:
         User: 現在のユーザ
     """
+    
     return current_user
 
 @router.post("/signup")
@@ -74,19 +75,4 @@ def get_user(id: str):
 def get_timeline():
     """タイムライン情報の取得
     """
-    pass
-
-
-@router.get("/favorite")
-def get_favorites():
-    pass
-
-
-@router.post("/favorite")
-def favorites(id: str):
-    pass
-
-
-@router.delete("/favorite")
-def delete_favorites(id: str):
     pass

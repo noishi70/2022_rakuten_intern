@@ -8,7 +8,7 @@ from pydantic import BaseModel, Field
 # TODO: ID => UUID
 
 class Post(BaseModel):
-    created_by: int
+    user_id: str
     name: str
     icon: str
     post_id: str
@@ -26,4 +26,13 @@ class CreatePost(BaseModel):
     content: str
     url: str
     duration: str
+
+
+class UsersPost(BaseModel):
+    id: int
+    title: str
+    content: str
+    url: str
+    time: int
+    datetime: datetime
     
