@@ -1,0 +1,50 @@
+.headimg {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+}
+
+.iconimage {
+    width:75px;
+    height:75px;
+    border-radius: 50%;
+}
+
+.row {
+    align-items: center;
+    display: flex;
+    justify-content: space-evenly;
+}
+.iconname {
+    align-items: center;
+}
+
+.profilebutton {
+    color: #fff;
+    background-color: #66CCCC;
+    border-color: #00CCCC;
+    border-width: 1px;
+    border-radius: 100vh;
+}
+
+.username {
+    margin:0 auto;
+    font-size: 20px;
+    width: 100%;
+    overflow-wrap: break-word;
+}
+
+.profile {
+    margin-top: 30px;
+    margin: 0 auto;
+    width: 50%;
+}
+
+.profileintro{
+    overflow-wrap: break-word;
+}
+
+.followfollower {
+    display: flex;
+    justify-content: space-evenly;
+}
