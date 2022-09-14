@@ -29,7 +29,7 @@ class CreatePost(BaseModel):
 
 
 class UsersPost(BaseModel):
-    id: int
+    id: str
     title: str
     content: str
     url: str
