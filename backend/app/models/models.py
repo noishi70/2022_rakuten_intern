@@ -23,8 +23,8 @@ class User(Base):
     user_id = Column(String(64), primary_key=True)
     name = Column(String(32), nullable=False)
     email = Column(String(32), nullable=False)
-    header_img = Column(String(1024))
-    icon = Column(String(1024))
+    header_img = Column(String(1024), default='./icon/defalut_header.jpg')
+    icon = Column(String(1024), default='./icon/defalut_icon.jpg')
     comment = Column(String(512))
     hashed_password = Column(String(512), nullable=False)
 
