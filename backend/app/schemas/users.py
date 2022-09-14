@@ -1,6 +1,6 @@
 from typing import Optional
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, EmailStr
 
 
 # TODO: ID => UUID
@@ -10,8 +10,8 @@ class User(BaseModel):
     header_img: Optional[str] = Field(None)
     icon: Optional[str] = Field(None)
     comment: Optional[str] = Field(None)
-    email: str
-    password: str
+    email: EmailStr
 
     class Config:
         orm_mode = True
+        

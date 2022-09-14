@@ -10,3 +10,5 @@ python-dotenv==0.21.0
 python-jose[bcrypt]==3.3.0
 passlib==1.7.4
 python-multipart==0.0.5
+fastapi_mail==1.0.9
+email-validator==1.1.3
