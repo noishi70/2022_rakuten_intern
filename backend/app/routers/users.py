@@ -1,12 +1,15 @@
+from email import header
 from uuid import uuid4
 import hashlib
 from fastapi import APIRouter, Depends
 from typing import List
 
-from schemas.users import User, CreateUser, UserAndPosts
+from schemas.users import User, CreateUser, UserAndPosts, PatchUser
 import schemas.posts
-from cruds.users import signup
+from cruds.users import signup, get_user_by_id
+from cruds.posts import fetch_posts_by_id
 from libs.auth import get_current_user
+from db import session
 
 router = APIRouter(
     tags=["users"]
@@ -22,7 +25,10 @@ async def read_users_me(current_user: User = Depends(get_current_user)):
     Returns:
         User: 現在のユーザ
     """
-    
+    user = get_user_by_id(user_id=current_user.user_id)
+    posts = fetch_posts_by_id(user_id=current_user.user_id)
+
+
     return current_user
 
 @router.post("/signup")
@@ -53,28 +59,48 @@ def user_signup(
 #     return current_user
 
 
-# @router.patch("/me")
-# def patch_me():
-#     """プロフィールの変更
-#     """
-#     user = mock_authorize()
-#     update_me(user_id=user.user_id, name="rakuten panda")
-#     return
-
 # ここまで
+
+@router.patch("/me", response_model=User)
+def patch_me(patch_user: PatchUser, current_user: User = Depends(get_current_user)):
+    """自身のプロフィールを変更する
+
+    Args:
+        patch_user (PatchUser): プロフィール変更のリクエストボディ
+        current_user (User, optional): 現在ログインしているユーザ
+    """
+    me = get_user_by_id(user_id=current_user.user_id)
+    if patch_user.name:
+        me.name = patch_user.name
+    if patch_user.header_img:
+        me.header_img = patch_user.header_img
+    if patch_user.icon:
+        me.icon = patch_user.icon
+    if patch_user.comment:
+        me.comment = patch_user.comment
+    
+    session.commit()
+    session.close()
+
+    return 
+
 
 
 @router.get("/{id}", response_model=UserAndPosts)
 def get_user(
-    id: str,
+    user_id: str,
     current_user: User = Depends(get_current_user)
 ):
-    """ID で指定したユーザを返す
+    """ID で指定したユーザとその投稿を返す
 
     Args:
-        id (str): ユーザID
+        user_id (str): ユーザID
     """
-    pass
+    user = get_user_by_id(user_id=user_id)
+    posts = fetch_posts_by_id(user_id=user_id)
+
+    return 
+
 
 
 @router.get("/timeline", response_model=List[schemas.posts.Post])

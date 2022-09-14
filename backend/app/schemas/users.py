@@ -1,7 +1,7 @@
 from typing import Optional
 
 from pydantic import BaseModel, Field, EmailStr
-from schemas.posts import Post
+from schemas.posts import UsersPost
 
 # TODO: ID => UUID
 class User(BaseModel):
@@ -21,4 +21,15 @@ class CreateUser(BaseModel):
 
 
 class UserAndPosts(User):
-    posts: list[Post]
+    follows: int
+    followers: int
+    posts: list[UsersPost]
+    
+    class Config:
+        orm_mode = True
+
+class PatchUser(BaseModel):
+    name: Optional[str] = Field(None)
+    header_img: Optional[str] = Field(None)
+    icon: Optional[str] = Field(None)
+    comment: Optional[str] = Field(None)
