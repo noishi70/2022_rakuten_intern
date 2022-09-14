@@ -47,7 +47,7 @@ async def provisional_signup(
     session.commit()
     
     registration_url = f"""
-    {req.base_url.scheme}://{req.base_url.hostname}:8080/mail?token={token}
+    {req.base_url.scheme}://{req.base_url.hostname}:4000/mail?token={token}
     """
     
     body = registration_mail_body(
