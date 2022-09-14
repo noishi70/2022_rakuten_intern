@@ -7,6 +7,7 @@ from schemas.users import User, CreateUser, UserAndPosts, PatchUser
 import schemas.posts
 from cruds.users import signup, get_user_by_id
 from cruds.posts import fetch_posts_by_id
+from cruds.follow import count_followers, count_followees
 from libs.auth import get_current_user
 from db import session
 
@@ -26,7 +27,12 @@ async def read_users_me(current_user: User = Depends(get_current_user)):
     """
     user = get_user_by_id(user_id=current_user.user_id)
     posts = fetch_posts_by_id(user_id=current_user.user_id)
+    followers = count_followers(user_id=current_user.user_id)
+    followees = count_followees(user_id=current_user.user_id)
 
+    res_data = UserAndPosts(
+        
+    )
 
     return current_user
 

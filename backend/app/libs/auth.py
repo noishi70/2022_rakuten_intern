@@ -1,6 +1,8 @@
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 import hashlib
 import os
+from typing import Tuple
+import secrets
 
 from dotenv import load_dotenv
 from fastapi import HTTPException, Depends, APIRouter
@@ -17,7 +19,7 @@ SECRET_KEY: str = os.environ.get("SECRET_KEY")
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 30
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
-
+JST = timezone(timedelta(hours=+9), 'JST')
 
 router = APIRouter()
 
@@ -25,6 +27,11 @@ router = APIRouter()
 class Token(BaseModel):
     access_token: str
     token_type: str
+    
+
+def generate_provisional_token() -> Tuple[str, datetime]:
+    token = secrets.token_urlsafe(36)
+    return (token, datetime.now(JST) + timedelta(minutes=30))
 
 
 def authenticate(email: str, password: str) -> User:
@@ -50,7 +57,7 @@ def authenticate(email: str, password: str) -> User:
 
 
 # TODO: int -> str
-def create_tokens(user_id: int):
+def create_tokens(user_id: str):
     access_payload = {
         "token_type": "access_token",
         "exp": datetime.utcnow() + timedelta(minutes=60),

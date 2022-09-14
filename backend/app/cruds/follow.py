@@ -16,6 +16,7 @@ def follow(follower_id: str, followee_id: str):
     session.close()
     return
 
+
 def unfollow(follower_id: str, followee_id: str):
     """DBのフォロー情報を削除する
 
@@ -40,3 +41,29 @@ def unfollow(follower_id: str, followee_id: str):
     session.commit()
     session.close()
     return
+
+
+def get_followers(followee_id: str):
+    followers = session.query(Follow) \
+        .filter(Follow.followee_id==followee_id).all()
+    session.close()
+    return followers
+
+
+def get_followees(follower_id: str):
+    followees = session.query(Follow) \
+        .filter(Follow.follower_id==follower_id).all()
+    session.close()
+    return followees
+
+def count_followers(user_id: str):
+    number_of_followers = session.query(Follow) \
+                    .filter(Follow.follower_id == user_id).count()
+    session.close()
+    return number_of_followers
+
+def count_followees(user_id: str):
+    number_of_followers = session.query(Follow) \
+                    .filter(Follow.follower_id == user_id).count()
+    session.close()
+    return number_of_followers

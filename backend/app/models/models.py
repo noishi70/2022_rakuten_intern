@@ -1,6 +1,8 @@
 from datetime import datetime
 from sqlalchemy import Column, Integer, String, ForeignKey, DateTime
 from sqlalchemy.orm import relationship
+from sqlalchemy.dialects.mysql import TIMESTAMP as Timestamp
+from sqlalchemy.sql.functions import current_timestamp
 
 from db import Base
 
@@ -26,8 +28,39 @@ class User(Base):
     comment = Column(String(512))
     hashed_password = Column(String(512), nullable=False)
 
-    # post = relationship("Post", back_populates="users")
+    def to_schema(self):
+        return{
+            "user_id": self.user_id,
+            "name": self.name,
+            "email": self.email,
+            "header_img": self.header_img,
+            "icon": self.icon,
+            "comment": self.comment,
+        }
 
+    # post = relationship("Post", back_populates="users")
+    
+class ProvisionalUser(Base):
+    __tablename__ = "provisional_users"
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(String(64), nullable=False, index=True)
+    email = Column(String(64), nullable=False, unique=True, index=True)
+    hashed_password = Column(String(128), nullable=False)
+    token = Column(String(256), nullable=False, unique=True)
+    created_at = Column(
+        Timestamp,
+        nullable=False,
+        server_default=current_timestamp(),
+    )
+
+    expired_at = Column(Timestamp, nullable=False, server_default=current_timestamp())
+    
+    def __init__(self, name: str, email: str, hashed_password: str, token: str, expired_at: datetime) -> None:
+        self.name = name
+        self.email = email
+        self.hashed_password = hashed_password
+        self.token = token
+        self.expired_at = expired_at
 
 class Post(Base):
     __tablename__ = "posts"
