@@ -1,6 +1,7 @@
 from uuid import uuid4
 import hashlib
 from fastapi import APIRouter, Depends, HTTPException
+from cruds.users import is_exist_user_by_email
 
 from schemas.users import User, CreateUser, UserAndPosts, PatchUser
 import schemas.posts
@@ -84,6 +85,9 @@ def user_signup(
         email (str): emailアドレス
         password (str): パスワード
     """
+    email = create_user.email
+    if is_exist_user_by_email(email):
+        return HTTPException(status_code=400, detail="Bad Requests")
     user_id = str(uuid4())
     hashed_password = hashlib.md5(create_user.password.encode()).hexdigest()
     signup(user_id=user_id, email=create_user.email, hashed_password=hashed_password)
@@ -100,7 +104,7 @@ def patch_me(patch_user: PatchUser, current_user: User = Depends(get_current_use
     me = get_user_by_id(user_id=current_user.user_id)
     if not me:
         raise HTTPException(status_code=409, detail="user not found")
-    if patch_user.name:
+    if patch_user.name and len(str(patch_me))< 32:
         me.name = patch_user.name
     if patch_user.header_img:
         me.header_img = save_icon_imag(patch_user.header_img, me.header_img)
