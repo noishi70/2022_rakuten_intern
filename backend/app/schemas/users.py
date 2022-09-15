@@ -19,6 +19,11 @@ class CreateUser(BaseModel):
     email: EmailStr
     password: str
 
+class CreateUserAuth(BaseModel):
+    name: str
+    email: EmailStr
+    password: str
+
 
 class UserAndPosts(User):
     follows: int

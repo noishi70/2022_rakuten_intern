@@ -2,8 +2,10 @@ import { useState} from 'react';
 import axios from 'axios';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import Login from './components/Login';
+import Signup from './components/Signup';
 import MainPage from './pages/MainPage';
 import ProfilePage from './pages/ProfilePage';
+import Mail from './components/Mail';
 
 
 const App: any = () => {
@@ -64,6 +66,16 @@ return (
             <ProfilePage />
           </div>
         : <Navigate replace to='/' />
+      } />
+      <Route path='/signup' element={
+        <div>
+          <Signup />
+        </div>
+      } />
+      <Route path='/mail' element={
+        <div>
+          <Mail />
+        </div>
       } />
     </Routes>
   </BrowserRouter>

@@ -91,7 +91,7 @@ const Login = (props:props) => {
           </Typography>
           <Typography variant="caption" display="block">
             アカウントを持っていますか？
-            <Link href="#">アカウントを作成</Link>
+            <Link href="/signup">アカウントを作成</Link>
           </Typography>
         </Box>
       </Paper>

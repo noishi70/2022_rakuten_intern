@@ -8,7 +8,7 @@ from starlette.requests import Request
 from libs.auth import generate_provisional_token
 from libs.mail import registration_mail_body, send_mail, password_reset_mail_body
 
-from schemas.users import CreateUser
+from schemas.users import CreateUserAuth
 from models.models import ProvisionalUser, User
 
 router = APIRouter(
@@ -21,7 +21,7 @@ JST = timezone(timedelta(hours=+9), 'JST')
 @router.post("/provisional_signup")
 async def provisional_signup(
     req: Request,
-    create_user: CreateUser,
+    create_user: CreateUserAuth,
 ):
     user = session.query(User).filter(create_user.email == User.email).first()
     if user:
@@ -37,7 +37,7 @@ async def provisional_signup(
     else:
         hashed_password = hashlib.md5(create_user.password.encode()).hexdigest()
         user = ProvisionalUser(
-            name="ユーザー",
+            name=create_user.name,
             email=create_user.email,
             hashed_password=hashed_password,
             token=token,
@@ -47,7 +47,7 @@ async def provisional_signup(
     session.commit()
     
     registration_url = f"""
-    {req.base_url.scheme}://{req.base_url.hostname}:4000/mail?token={token}
+    {req.base_url.scheme}://{req.base_url.hostname}:3000/mail?token={token}
     """
     
     body = registration_mail_body(
