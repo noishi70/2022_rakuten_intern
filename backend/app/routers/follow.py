@@ -14,6 +14,12 @@ def follow_users(
     followee: CreateFollow,
     follower: User = Depends(get_current_user),
 ):
+    """ユーザをフォローする
+
+    Args:
+        followee (CreateFollow): フォロイーの情報
+        follower (User, optional): ログインユーザ. Defaults to Depends(get_current_user).
+    """
     follow(
         follower_id=follower.user_id,followee_id=followee.followee_id
     )
@@ -24,6 +30,12 @@ def delete_follow(
     followee: CreateFollow,
     follower: User = Depends(get_current_user),
 ):
+    """ユーザをアンフォローする
+
+    Args:
+        followee (CreateFollow): フォロイーの情報
+        follower (User, optional): ログインユーザ. Defaults to Depends(get_current_user).
+    """
     unfollow(
         follower_id=follower.user_id,
         followee_id=followee.followee_id,
