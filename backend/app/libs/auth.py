@@ -30,6 +30,11 @@ class Token(BaseModel):
     
 
 def generate_provisional_token() -> Tuple[str, datetime]:
+    """メール送信のための一時的なトークンを発行
+
+    Returns:
+        Tuple[str, datetime]: トークンとトークンの期限
+    """
     token = secrets.token_urlsafe(36)
     return (token, datetime.now(JST) + timedelta(minutes=30))
 
@@ -56,8 +61,12 @@ def authenticate(email: str, password: str) -> User:
     return user
 
 
-# TODO: int -> str
 def create_tokens(user_id: str):
+    """ユーザIDからトークンを作成
+
+    Args:
+        user_id (str): ユーザID
+    """
     access_payload = {
         "token_type": "access_token",
         "exp": datetime.utcnow() + timedelta(minutes=60),
@@ -70,6 +79,15 @@ def create_tokens(user_id: str):
 
 
 def get_current_user_from_token(token: str, token_type: str):
+    """トークンからログインユーザを取得
+
+    Args:
+        token (str): トークン
+        token_type (str): トークンタイプ
+
+    Raises:
+        HTTPException: トークンタイプが違う例外
+    """
     payload = jwt.decode(token, SECRET_KEY, algorithms=["HS256"])
 
     if payload["token_type"] != token_type:
@@ -82,6 +100,11 @@ def get_current_user_from_token(token: str, token_type: str):
 
 
 async def get_current_user(token: str = Depends(oauth2_scheme)):
+    """ログインユーザを返す
+
+    Args:
+        token (str, optional): トークン. Defaults to Depends(oauth2_scheme).
+    """
     return get_current_user_from_token(token, "access_token")
 
 
