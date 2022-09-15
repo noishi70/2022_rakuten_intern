@@ -30,11 +30,11 @@ def post_post(
     try:
         if create_post_body.time < 0:
             raise HTTPException(status_code=409, detail="time should be positive")
-        if len(create_post_body.title) > 128:
+        if len(create_post_body.title) > 127:
             raise HTTPException(status_code=409, detail="too long title")
-        if len(create_post_body.content) > 1024:
+        if len(create_post_body.content) > 1023:
             raise HTTPException(status_code=409, detail="too long content")
-        if len(create_post_body.url) > 512:
+        if len(create_post_body.url) > 511:
             raise HTTPException(status_code=409, detail="too long URL")
 
         create_post(
