@@ -7,10 +7,10 @@ type Props = {
   icon: string;
   name: string;
   comment: string;
-  setHeader: (prop: string) => void;
-  setIcon: (prop: string) => void;
-  setName: (prop: string) => void;
-  setComment: (prop: string) => void;
+  setHeader: (arg: string) => void;
+  setIcon: (arg: string) => void;
+  setName: (arg: string) => void;
+  setComment: (arg: string) => void;
 };
 
 const ProfileFix = (props: Props) => {

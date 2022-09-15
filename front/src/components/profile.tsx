@@ -1,15 +1,18 @@
-import React, { useState } from "react";
-import { Button, Drawer, Grid, IconButton } from '@mui/material';
+import { useState } from "react";
+import { Button, Drawer } from '@mui/material';
 import Style from "./Profile.module.css";
 import ProfileFix from "./ProfileFix";
-import { PropaneSharp } from "@mui/icons-material";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 type Props = {
+  my_id: number;
   user_id: number;
   header: string;
   icon: string;
   name: string;
   comment: string;
+  follow: number;
+  follower: number;
   setProfile?: (value: Profile) => void;
 };
 
@@ -63,7 +66,7 @@ const Profile = (props: Props) => {
             <img src={icon} className={Style.iconimage} alt="icon" />
             <div className={Style.username}>{name}</div>
           </div>
-          <Button style={{borderRadius: '20px'}} variant="contained" onClick={() => toggleDrawer(true) } >プロフィール変更</Button>
+          {props.my_id === props.user_id ? <Button style={{borderRadius: '20px'}} variant="contained" onClick={() => toggleDrawer(true) } >プロフィール変更</Button> : <Button style={{borderRadius: '20px'}} variant="contained" onClick={() => toggleDrawer(true) } >フォローする</Button>}
         </div>
 
         <div className={Style.profile}>
@@ -73,8 +76,8 @@ const Profile = (props: Props) => {
         </div>
 
         <div className={Style.followfollower}>
-          <div className={Style.follow}>1234 フォロー</div>
-          <div className={Style.follower}>5678 フォロワー</div>
+          <div className={Style.follow}>{props.follow} フォロー</div>
+          <div className={Style.follower}>{props.follower} フォロワー</div>
         </div>
       </div>
 

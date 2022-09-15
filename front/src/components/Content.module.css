@@ -46,7 +46,11 @@
 
 .url {
   display: flex;
-  padding: 0 0 0 0;
+}
+
+.urlshort {
+  display: flex;
+  margin: 0 0 30px 0;
 }
 
 .user_id {
