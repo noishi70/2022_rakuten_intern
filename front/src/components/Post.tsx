@@ -47,7 +47,7 @@ export default function Search(props: Props) {
       console.log(res.data);
       
     });
-    <Navigate replace to='/home' />
+    window.location.reload()
   }
 
   return (

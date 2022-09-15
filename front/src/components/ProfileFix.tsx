@@ -69,7 +69,7 @@ const ProfileFix = (props: Props) => {
     axios.patch(url, data, { headers: { Authorization: "Bearer " + API_TOKEN } }).then((res) => {
       console.log(res.data);
     });
-    <Navigate replace to='/home' />
+    window.location.reload()
   }
 
   return (

@@ -3,6 +3,7 @@ import { Button, Drawer } from '@mui/material';
 import Style from "./Profile.module.css";
 import ProfileFix from "./ProfileFix";
 import axios from 'axios';
+import  Link  from "react-router-dom"
 
 type Props = {
   my_id: string;
@@ -30,6 +31,7 @@ const Profile = (props: Props) => {
   const [name, setName] = useState(props.name);
   const [comment, setComment] = useState(props.comment);
   const [drawer, toggleDrawer] = useState(false);
+  const [isfollow, setIsfollow] = useState(props.is_follow);
   const anchor = 'bottom';
 
   const changeHeader = (prop: string) => {
@@ -62,6 +64,8 @@ const Profile = (props: Props) => {
     axios.post(url, data, { headers: { Authorization: "Bearer " + API_TOKEN } }).then((res) => {
       console.log(res.data);
     });
+    setIsfollow(true);
+    window.location.reload()
   }
 
   const delfollow = () => {
@@ -70,6 +74,8 @@ const Profile = (props: Props) => {
     axios.delete(url, { headers: { Authorization: "Bearer " + API_TOKEN }, data: {"followee_id": props.user_id}}).then((res) => {
       console.log(res.data);
     });
+    setIsfollow(false);
+    window.location.reload()
   }
 
   var info = { header: props.header, icon: props.icon, name: props.name, comment: props.comment, setHeader: changeHeader, setIcon: changeIcon, setName: changeName, setComment: changeComment };
