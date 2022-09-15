@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import Style from './Content.module.css';
 
 type Props = {
-  user_id: number
+  user_id: string
   name: string
   icon: string
   post_id: number

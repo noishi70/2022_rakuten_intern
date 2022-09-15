@@ -4,8 +4,8 @@ import Style from "./Profile.module.css";
 import ProfileFix from "./ProfileFix";
 
 type Props = {
-  my_id: number;
-  user_id: number;
+  my_id: string;
+  user_id: string;
   header: string;
   icon: string;
   name: string;
