@@ -8,7 +8,7 @@ type Key = {
 }
 
 type Props = {
-  setValue?: (key: Key) => void;
+  setKey?: (key: Key) => void;
 };
 
 export default function Search(props: Props){
@@ -31,7 +31,7 @@ export default function Search(props: Props){
       word: searchWordValue,
       time: searchTimeValue,
     }
-    props.setValue?.(newKey);
+    props.setKey?.(newKey);
   }
 
   return (
@@ -49,7 +49,7 @@ export default function Search(props: Props){
               />
           <TextField
               id="search-keyword"
-              label="所要時�?"
+              label="所要時間"
               variant="standard"
               value={searchTimeValue}
               onChange={(event: React.ChangeEvent<HTMLInputElement>) => changeSearchedValueHandler(event)}

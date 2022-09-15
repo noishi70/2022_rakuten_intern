@@ -1,4 +1,3 @@
-
 .headimg {
     width: 100vw;
     height: 30vw;
@@ -22,14 +21,6 @@
 }
 .iconname {
     align-items: center;
-}
-
-.profilebutton {
-    color: #fff;
-    background-color: #66CCCC;
-    border-color: #00CCCC;
-    border-width: 1px;
-    border-radius: 100vh;
 }
 
 .username {

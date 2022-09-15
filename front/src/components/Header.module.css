@@ -4,16 +4,17 @@
   padding: 10px;
   position: fixed;
   top: 0;
-  box-shadow: 0 0 10px 0 rgba(40, 44, 52, 0.8);
+  border-bottom: 2px solid lightgray;
   z-index: 10;
 }
 
 .img {
-  width:30px;
-	height:30px;
+  width:40px;
+	height:40px;
 	object-fit:cover;
 	border-radius:50%;
-  padding: 0 0px 0 0px;
+  justify-content: left;
+  padding: 0 0px 0 5px;
 }
 
 .change {
@@ -23,7 +24,9 @@
 }
 
 .drawerbutton {
-  padding: 0 20px 0 20px;
+  display: flex;
+  align-items: center;
+	justify-content: center;
 }
 
 .drawer {
