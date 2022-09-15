@@ -42,6 +42,7 @@ def fetch_posts(
     session.close()
     return posts
 
+
 def fetch_posts_by_id(user_id: str) -> list[Post]:
     """id から全投稿を取ってくる
 
@@ -52,5 +53,16 @@ def fetch_posts_by_id(user_id: str) -> list[Post]:
         list[Post]: 全投稿
     """
     posts = session.query(Post).filter(Post.user_id==user_id).all()
+    session.close()
+    return posts
+
+
+def fetch_all_posts() -> list[Post]:
+    """タイムラインのために全ての投稿を取る
+
+    Returns:
+        list[Post]: DBに登録されている全ての投稿
+    """
+    posts = session.query(Post).all()    
     session.close()
     return posts
