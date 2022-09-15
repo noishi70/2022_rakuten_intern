@@ -100,7 +100,7 @@ def patch_me(patch_user: PatchUser, current_user: User = Depends(get_current_use
     me = get_user_by_id(user_id=current_user.user_id)
     if not me:
         raise HTTPException(status_code=409, detail="user not found")
-    if patch_user.name:
+    if patch_user.name and len(str(patch_me))< 32:
         me.name = patch_user.name
     if patch_user.header_img:
         me.header_img = save_icon_imag(patch_user.header_img, me.header_img)
