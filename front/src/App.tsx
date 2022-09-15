@@ -15,8 +15,6 @@ type Key = {
   time: number;
 }
 
-
-
 const App: any = () => {
   type User = {
     user_id: number;
@@ -62,7 +60,8 @@ const App: any = () => {
   const [content, setContent] = useState({title: '', url: '', time: 0, text: ''})
   const [login, setLogin] = useState({username: "",password:""})
 
-  const apiurl = 'http://0.0.0.0:4000';
+  const apiurl = process.env.REACT_APP_API || '';
+  const token = sessionStorage.getItem('access_tokun');
 
   {/* API‚É‚æ‚éƒf[ƒ^æ“¾ */ }
   const usermeget = () => {
@@ -213,19 +212,24 @@ return (
   <BrowserRouter>
     <Routes>
       <Route path='/' element={
-        <div>
-          <Header {...header_info} />
-          <Grid container className={Style.content}>
-            {
-              timeline_test.map( post => 
-                <Grid key={post.post_id} item xs={12} sm={6} md={4} lg={3} xl={2}>
-                  <Content {...post} />
-                </Grid>
-              )
-            }
-          </Grid>
-          <Footer {...footer_info} />
-        </div>
+        token ?
+          <div>
+            <Header {...header_info} />
+            <Grid container className={Style.content}>
+              {
+                timeline_test.map( post => 
+                  <Grid key={post.post_id} item xs={12} sm={6} md={4} lg={3} xl={2}>
+                    <Content {...post} />
+                  </Grid>
+                )
+              }
+            </Grid>
+            <Footer {...footer_info} />
+          </div>
+          :
+          <div>
+            <Login setLogin={setLogin} />
+          </div>
       } />
       <Route path={'/profile/*'} element={
         <div>
@@ -242,14 +246,7 @@ return (
           <Footer {...footer_info} />
         </div>
       } />
-      <Route path="/login" element={
-          <div>
-            <Login setLogin={setLogin} />
-            <p>
-              {login.username}
-            </p>
-          </div>
-        }  />
+      
     </Routes>
   </BrowserRouter>
 

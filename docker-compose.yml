@@ -4,13 +4,14 @@ services:
     image: node:16
     volumes:
       - ./front:/usr/src
-      - front_modules:/usr/src/node_modules #node_modulesはコンテナ内部で用意します
+      - front_modules:/usr/src/node_modules
     working_dir: "/usr/src"
     command: sh -c "yarn  && yarn start"
     tty: true
     ports:
       - "3000:3000"
     environment:
+      REACT_APP_API: "http://localhost:4000"
       API_URL_SSR: "http://api:4000"
       NEXT_PUBLIC_API_URL: "http://localhost:4000"
       CHOKIDAR_USEPOLLING: "true"
@@ -41,8 +42,8 @@ services:
       MYSQL_PASSWORD: docker
       TZ: "Asia/Tokyo"
     volumes:
-      - ./db/data:/var/lib/mysql #データ永続化
-      - ./db/sql:/docker-entrypoint-initdb.d #起動時sqlフォルダ内のsqlファイルを実行
+      - ./db/data:/var/lib/mysql
+      - ./db/sql:/docker-entrypoint-initdb.d
 
   nginx:
     build: ./server
