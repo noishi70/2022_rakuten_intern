@@ -35,7 +35,7 @@ const Footer = (props: props) => {
             <Grid container>
                 <Grid item xs={4} className={Style.griditem}>
                     <IconButton>
-                        <a href='/'>
+                        <a href='/home'>
                             <HomeIcon fontSize='large' color='primary' />
                         </a>
                     </IconButton>

@@ -1,7 +1,7 @@
 import { Grid } from '@mui/material';
 import { useState } from 'react';
 import axios from 'axios';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import Style from './App.module.css';
 
 import Header from './components/Header';
@@ -61,7 +61,7 @@ const App: any = () => {
   const [login, setLogin] = useState<LoginInfo>({username: "",password:""})
 
   const apiurl = process.env.REACT_APP_API || '';
-  const token = sessionStorage.getItem('access_tokun');
+  var token = sessionStorage.getItem('access_token');
 
   type LoginInfo = {
     username: string;
@@ -81,8 +81,10 @@ const App: any = () => {
     let url = process.env.REACT_APP_API + '/token';
                 axios.post(url, params, config).then(res =>{
                   sessionStorage.setItem('access_token', res.data.access_token);
+                  token = sessionStorage.getItem('access_token');
                   console.log(res.data.access_token);
                   usermeget();
+                  <Navigate replace to='/home' />
                 });
   }
 
@@ -240,10 +242,24 @@ const footer_info = {
   setContent: setContent,
 }
 
+
+
 return (
   <BrowserRouter>
     <Routes>
       <Route path='/' element={
+        token ?
+          <div>
+          <a>a</a>
+          <Navigate replace to='/home' />
+          </div>
+          :
+          <div>
+            <Login setLogin={changeLogin} />
+            <a>a</a>
+          </div>
+      } />
+      <Route path='/home' element={
         token ?
           <div>
             <Header {...header_info} />
@@ -258,27 +274,25 @@ return (
             </Grid>
             <Footer {...footer_info} />
           </div>
-          :
-          <div>
-            <Login setLogin={changeLogin} />
-          </div>
+          : <Navigate replace to='/' />
       } />
       <Route path={'/profile/*'} element={
-        <div>
-          <Profile my_id={userme_test.user_id} user_id={userID_test.user_id} header={userID_test.header} icon={userID_test.icon} name={userID_test.name} comment={userID_test.comment} follow={userID_test.follows} follower={userID_test.followers} setProfile={setProfile}/>
-          <Grid container className={Style.content}>
-            {
-              userID_test.posts.map( post => 
-                <Grid key={post.id} item xs={12} sm={6} md={4} lg={3} xl={2}>
-                  <Content user_id={userID_test.user_id} name={userID_test.name} icon={userID_test.icon} post_id={post.id} title={post.title} content={post.content} url={post.url} time={post.time} datatime={post.datatime} />
-                </Grid>
-              )
-            }
-          </Grid>
-          <Footer {...footer_info} />
-        </div>
+        token ?
+          <div>
+            <Profile my_id={userme_test.user_id} user_id={userID_test.user_id} header={userID_test.header} icon={userID_test.icon} name={userID_test.name} comment={userID_test.comment} follow={userID_test.follows} follower={userID_test.followers} setProfile={setProfile}/>
+            <Grid container className={Style.content}>
+              {
+                userID_test.posts.map( post => 
+                  <Grid key={post.id} item xs={12} sm={6} md={4} lg={3} xl={2}>
+                    <Content user_id={userID_test.user_id} name={userID_test.name} icon={userID_test.icon} post_id={post.id} title={post.title} content={post.content} url={post.url} time={post.time} datatime={post.datatime} />
+                  </Grid>
+                )
+              }
+            </Grid>
+            <Footer {...footer_info} />
+          </div>
+        : <Navigate replace to='/' />
       } />
-      
     </Routes>
   </BrowserRouter>
 
