@@ -25,14 +25,14 @@ def post_post(
         title (str): 投稿のタイトル
         content (str): 投稿の内容
         url (str): 投稿のURL
-        duration (int): 所要時間
+        time (int): 所要時間
     """
     try:
         create_post(
             title=create_post_body.title, 
             content=create_post_body.content, 
             url=create_post_body.url, 
-            duration=create_post_body.duration, 
+            time=create_post_body.time, 
             user_id=current_user.user_id,
         )
     except:

@@ -6,14 +6,14 @@ from models.models import Post
 from uuid import uuid4
 
 
-def create_post(title: str, content: str, url: str, duration: int, user_id: str) -> None:
+def create_post(title: str, content: str, url: str, time: int, user_id: str) -> None:
     """投稿を作成してDBに流す
 
     Args:
         title (str): 投稿タイトル名
         content (str): 投稿内容
         url (str): 投稿のURL
-        duration (int): 投稿の所要時間
+        time (int): 投稿の所要時間
         user_id (str): 投稿者ID
     """
     post = Post(
@@ -21,7 +21,7 @@ def create_post(title: str, content: str, url: str, duration: int, user_id: str)
         title=title,
         content=content,
         url=url,
-        duration=duration, 
+        time=time, 
         user_id=user_id
     )
     
@@ -53,7 +53,7 @@ def fetch_posts(
             ),
         )
     if time:
-        filters.append(Post.duration <= time)
+        filters.append(Post.time <= time)
     
     posts = session.query(Post) \
                 .filter(and_(*filters)).all()
