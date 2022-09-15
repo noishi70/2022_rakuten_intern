@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Button, Drawer } from '@mui/material';
 import Style from "./Profile.module.css";
 import ProfileFix from "./ProfileFix";
+import axios from 'axios';
 
 type Props = {
   my_id: string;
@@ -12,6 +13,7 @@ type Props = {
   comment: string;
   follow: number;
   follower: number;
+  is_follow: boolean;
   setProfile?: (value: Profile) => void;
 };
 
@@ -51,21 +53,49 @@ const Profile = (props: Props) => {
     props.setProfile?.({header, icon, name, comment});
   }
 
+  const dofollow = () => {
+    let url = process.env.REACT_APP_API + '/api/users/follow';
+    const API_TOKEN = sessionStorage.getItem('access_token');
+    const data = {
+      "followee_id": props.user_id
+    };
+    axios.post(url, data, { headers: { Authorization: "Bearer " + API_TOKEN } }).then((res) => {
+      console.log(res.data);
+    });
+  }
+
+  const delfollow = () => {
+    let url = process.env.REACT_APP_API + '/api/users/follow';
+    const API_TOKEN = sessionStorage.getItem('access_token');
+    axios.delete(url, { headers: { Authorization: "Bearer " + API_TOKEN }, data: {"followee_id": props.user_id}}).then((res) => {
+      console.log(res.data);
+    });
+  }
+
   var info = { header: props.header, icon: props.icon, name: props.name, comment: props.comment, setHeader: changeHeader, setIcon: changeIcon, setName: changeName, setComment: changeComment };
 
   return (
     <div>
       <div className={Style.head}>
-        <img src={header} className={Style.headimg} alt="Header" />
+        <img src={'data:image/png;base64,' + props.header} className={Style.headimg} alt="Header" />
       </div>
 
       <div className={Style.bodyelem}>
         <div className={Style.row}>
           <div className={Style.iconname}>
-            <img src={icon} className={Style.iconimage} alt="icon" />
-            <div className={Style.username}>{name}</div>
+            <img src={'data:image/png;base64,' + props.icon} className={Style.iconimage} alt="icon" />
+            <div className={Style.username}>{props.name}</div>
           </div>
-          {props.my_id === props.user_id ? <Button style={{borderRadius: '20px'}} variant="contained" onClick={() => toggleDrawer(true) } >プロフィール変更</Button> : <Button style={{borderRadius: '20px'}} variant="contained" onClick={() => toggleDrawer(true) } >フォローする</Button>}
+          {(() => {
+            if (props.my_id === props.user_id) {
+              return <Button style={{borderRadius: '20px'}} variant="contained" onClick={() => toggleDrawer(true) } >プロフィール変更</Button>;
+            } else if(props.is_follow) {
+              return <Button style={{borderRadius: '20px'}} variant="contained" onClick={() =>delfollow() } >フォロー解除</Button>;
+            } else {
+              return <Button style={{borderRadius: '20px'}} variant="contained" onClick={() => dofollow() } >フォローする</Button>;
+            }
+          })()}
+          
         </div>
 
         <div className={Style.profile}>

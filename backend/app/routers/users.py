@@ -3,11 +3,11 @@ import hashlib
 from fastapi import APIRouter, Depends, HTTPException
 from cruds.users import is_exist_user_by_email
 
-from schemas.users import User, CreateUser, UserAndPosts, PatchUser
+from schemas.users import User, CreateUser, UserAndPosts, PatchUser, UseridGet
 import schemas.posts
 from cruds.users import signup, get_user_by_id
 from cruds.posts import fetch_posts_by_id, fetch_all_posts
-from cruds.follow import count_followers, count_followees, get_followees
+from cruds.follow import count_followers, count_followees, get_followees, is_follow
 from libs.auth import get_current_user
 from libs.img import save_icon_imag, change_imag_to_base64
 from db import session
@@ -27,7 +27,7 @@ def get_timeline(current_user: User = Depends(get_current_user)):
     posts = fetch_all_posts()
     
     followee_ids = [followee.followee_id for followee in get_followees(current_user.user_id)]
-    res_posts = [schemas.posts.Post(**post.to_dict(), name=get_user_by_id(post.user_id).name, icon=get_user_by_id(post.user_id).icon) for post in posts if post.user_id in followee_ids]
+    res_posts = [schemas.posts.Post(**post.to_dict(), name=get_user_by_id(post.user_id).name, icon=change_imag_to_base64(get_user_by_id(post.user_id).icon)) for post in posts if post.user_id in followee_ids]
     return res_posts
 
 
@@ -105,7 +105,7 @@ def patch_me(patch_user: PatchUser, current_user: User = Depends(get_current_use
     me = get_user_by_id(user_id=current_user.user_id)
     if not me:
         raise HTTPException(status_code=409, detail="user not found")
-    if patch_user.name and len(str(patch_me))< 32:
+    if patch_user.name and len(str(patch_user.name))< 32:
         me.name = patch_user.name
     if patch_user.header_img:
         me.header_img = save_icon_imag(patch_user.header_img, me.header_img)
@@ -121,7 +121,7 @@ def patch_me(patch_user: PatchUser, current_user: User = Depends(get_current_use
 
 
 
-@router.get("/{user_id}", response_model=UserAndPosts)
+@router.get("/{user_id}", response_model=UseridGet)
 def get_user(
     user_id: str,
     current_user: User = Depends(get_current_user)
@@ -151,7 +151,8 @@ def get_user(
 
     img = change_imag_to_base64(str(user.icon))
     head_img = change_imag_to_base64(str(user.header_img))
-    res_data = UserAndPosts(
+    flg = is_follow(current_user.user_id, user_id)
+    res_data = UseridGet(
         user_id=str(user.user_id),
         name=str(user.name),
         header_img=head_img,
@@ -160,7 +161,8 @@ def get_user(
         email=user.email,
         follows=followers,
         followers=followees,
-        posts=users_posts
+        posts=users_posts,
+        is_follow=flg
     )
 
     return res_data

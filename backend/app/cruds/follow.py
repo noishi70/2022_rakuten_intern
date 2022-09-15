@@ -84,6 +84,13 @@ def count_followees(user_id: str):
         user_id (str): 自分のID
     """
     number_of_followers = session.query(Follow) \
-                    .filter(Follow.follower_id == user_id).count()
+                    .filter(Follow.followee_id == user_id).count()
     session.close()
     return number_of_followers
+
+def is_follow(my_id: str, you_id):
+    user = session.query(Follow).filter(and_(Follow.follower_id == my_id, Follow.followee_id == you_id)).first()
+    flg = False
+    if user:
+        flg = True
+    return flg

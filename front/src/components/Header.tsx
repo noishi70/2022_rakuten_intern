@@ -7,7 +7,7 @@ import { useState } from 'react';
 import Style from './Header.module.css';
 
 type Props = {
-  user_id: number;
+  user_id: string;
   icon: string;
   setPage?: (arg: string) => void;
   setMode?: (arg: string) => void;
@@ -21,8 +21,8 @@ const Header = (props: Props) => {
     <div className={Style.header}>
       <Grid container>
         <Grid item xs={6}>
-          <a href={'/profile/@' + props.user_id}>
-            <img src={props.icon} alt='icon' className={Style.img} onClick={() => props.setPage?.('Profile@' + props.user_id)} />
+          <a href={'/profile/' + props.user_id}>
+            <img src={'data:image/png;base64,' + props.icon} alt='icon' className={Style.img} onClick={() => props.setPage?.('Profile@' + props.user_id)} />
           </a>
         </Grid>
         <Grid item xs={6} className={Style.change}>

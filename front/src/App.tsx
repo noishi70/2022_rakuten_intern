@@ -1,5 +1,5 @@
 import { Grid } from '@mui/material';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import Style from './App.module.css';
@@ -9,6 +9,8 @@ import Content from './components/Content';
 import Profile from './components/Profile';
 import Login from './components/Login';
 import Footer from './components/Footer';
+import MainPage from './pages/MainPage';
+import ProfilePage from './pages/ProfilePage';
 
 type Key = {
   word: string;
@@ -95,6 +97,7 @@ const App: any = () => {
     ]
   });
   const [userID, setUserID] = useState<User>();
+  const [value, setValue] = useState<number>(0);
   const [timeline, setTimeline] = useState<Array<Post>>();
   const [favorite, setFavorite] = useState<Array<Post>>();
   const [ranking, setRanking] = useState<Array<Post>>();
@@ -105,6 +108,7 @@ const App: any = () => {
   const [search, setSearch] = useState({word: '', time: 0});
   const [content, setContent] = useState({title: '', url: '', time: 0, text: ''})
   const [login, setLogin] = useState<LoginInfo>({username: "",password:""})
+
 
   const apiurl = process.env.REACT_APP_API || '';
   var token = sessionStorage.getItem('access_token');
@@ -129,21 +133,12 @@ const App: any = () => {
                   sessionStorage.setItem('access_token', res.data.access_token);
                   token = sessionStorage.getItem('access_token');
                   //console.log(res.data.access_token);
-                  usermeget();
-                  timelineget();
+                  
                   <Navigate replace to='/home' />
                 });
   }
 
-  {/* API�ɂ��f�[�^�擾 */ }
-  const usermeget = () => {
-    let url = process.env.REACT_APP_API + '/api/users/me';
-    const API_TOKEN = sessionStorage.getItem('access_token');
-    axios.get(url, { headers: { Authorization: "Bearer " + API_TOKEN } }).then((res) => {
-      setUserMe({...userMe, user_id: "sample"});
-      console.log(userMe)
-    })
-  }
+
 
   const userIDget = (user_id: string) => {
     let url = process.env.REACT_APP_API + '/api/users/' + user_id;
@@ -297,46 +292,24 @@ return (
       <Route path='/' element={
         token ?
           <div>
-          <a>a</a>
           <Navigate replace to='/home' />
           </div>
           :
           <div>
             <Login setLogin={changeLogin} />
-            <a>a</a>
           </div>
       } />
       <Route path='/home' element={
         token ?
           <div>
-            <Header {...header_info} />
-            <Grid container className={Style.content}>
-              {
-                timeline_test.map( post => 
-                  <Grid key={post.post_id} item xs={12} sm={6} md={4} lg={3} xl={2}>
-                    <Content {...post} />
-                  </Grid>
-                )
-              }
-            </Grid>
-            <Footer {...footer_info} />
+            <MainPage/>
           </div>
           : <Navigate replace to='/' />
       } />
-      <Route path={'/profile/*'} element={
+      <Route path={'/profile/:id'} element={
         token ?
           <div>
-            <Profile my_id={userMe.user_id} user_id={userMe.user_id} header={userMe.header_img} icon={userMe.icon} name={userMe.name} comment={userMe.comment} follow={userMe.follows} follower={userMe.followers} setProfile={setProfile}/>
-            <Grid container className={Style.content}>
-              {
-                userID_test.posts.map( post => 
-                  <Grid key={post.id} item xs={12} sm={6} md={4} lg={3} xl={2}>
-                    <Content user_id={userID_test.user_id} name={userID_test.name} icon={userID_test.icon} post_id={post.id} title={post.title} content={post.content} url={post.url} time={post.time} datatime={post.datatime} />
-                  </Grid>
-                )
-              }
-            </Grid>
-            <Footer {...footer_info} />
+            <ProfilePage />
           </div>
         : <Navigate replace to='/' />
       } />

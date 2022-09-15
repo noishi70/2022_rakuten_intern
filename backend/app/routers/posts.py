@@ -1,10 +1,11 @@
-from typing import Optional
-
+from typing import Optional, Any
 from fastapi import APIRouter, Depends, status, HTTPException
 
 from cruds.posts import  create_post,fetch_posts
+from cruds.users import get_user_by_id
 from models.models import Post 
 from schemas.users import User
+from libs.img import change_imag_to_base64
 
 import schemas.posts
 from libs.auth import get_current_user
@@ -63,6 +64,14 @@ def get_posts(
     Returns:
         list[Post]: 投稿の一覧
     """
+    user_post: list[dict[str, Any]] = []
     posts = fetch_posts(key_word, time)
-    res_posts = [schemas.posts.Post(**post.to_dict(), name="", icon="") for post in posts]
-    return res_posts
+    for post in posts:
+        user = get_user_by_id(post.user_id)
+        user_dict: dict[str, Any] = dict()
+        user_dict = post.to_dict()
+        user_dict['name'] = user.name
+        user_dict['icon'] = change_imag_to_base64(user.icon)
+        user_post.append(user_dict)
+    #res_posts = [schemas.posts.Post(**post.to_dict(), name="", icon="") for post in posts]
+    return user_post

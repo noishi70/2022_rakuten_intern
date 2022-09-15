@@ -27,6 +27,15 @@ class UserAndPosts(User):
     
     class Config:
         orm_mode = True
+        
+class UseridGet(User):
+    follows: int
+    followers: int
+    is_follow: bool
+    posts: list[UsersPost]
+    
+    class Config:
+        orm_mode = True
 
 class PatchUser(BaseModel):
     name: Optional[str] = Field(None)

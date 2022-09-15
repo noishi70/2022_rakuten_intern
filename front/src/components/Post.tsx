@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { TextField, Button, Stack, Container } from "@mui/material";
 import Style from './Post.module.css';
+import axios from 'axios';
+import {Navigate} from 'react-router-dom';
 
 type Content = {
   title: string;
@@ -33,8 +35,19 @@ export default function Search(props: Props) {
     setTweet({ ...tweet, text: event.target.value })
   }
   const output = () => {
-    props.setContent?.(tweet);
-    props.togglePost?.(false);
+    let url = process.env.REACT_APP_API + '/api/posts';
+    const API_TOKEN = sessionStorage.getItem('access_token');
+    const data = {
+      "title": tweet.title,
+      "content": tweet.text,
+      "url": tweet.url,
+      "time": tweet.time
+    }
+    axios.post(url, data, { headers: { Authorization: "Bearer " + API_TOKEN } }).then((res) => {
+      console.log(res.data);
+      
+    });
+    <Navigate replace to='/home' />
   }
 
   return (

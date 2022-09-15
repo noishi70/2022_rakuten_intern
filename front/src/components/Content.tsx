@@ -6,12 +6,12 @@ type Props = {
   user_id: string
   name: string
   icon: string
-  post_id: number
+  post_id: string
   title: string
   content: string
   url: string
   time: number
-  datatime: string
+  datetime: string
 }
 
 const Content = (props:Props) => {
@@ -24,8 +24,8 @@ const Content = (props:Props) => {
       <Grid container spacing={1}>
         <Grid item xs={3}>
           <Grid style={{ height: "100%" }}>
-            <a href={'/profile/@' + props.user_id}>
-              <img src={props.icon} alt='icon' className={Style.img} />
+            <a href={'/profile/' + props.user_id}>
+              <img src={'data:image/png;base64,' + props.icon} alt='icon' className={Style.img} />
             </a>
           </Grid>
         </Grid>
@@ -36,7 +36,7 @@ const Content = (props:Props) => {
               <p className={Style.user_id}>@{props.user_id}</p>
             </Grid>
             <Grid item xs={6} className={Style.datetime}>
-              <p>{props.datatime}</p>
+              <p>{props.datetime}</p>
             </Grid>
           </Grid>
           <Grid item xs={12}>

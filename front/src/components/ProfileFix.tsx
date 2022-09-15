@@ -1,6 +1,8 @@
 import { Button, Grid, TextField } from '@mui/material';
 import React, { useState } from 'react';
 import Style from './ProfileFix.module.css';
+import axios from 'axios';
+import {Navigate} from 'react-router-dom';
 
 type Props = {
   header: string;
@@ -53,6 +55,23 @@ const ProfileFix = (props: Props) => {
     }
   }
 
+  const completion = () => {
+    let url = process.env.REACT_APP_API + '/api/users/me';
+    const API_TOKEN = sessionStorage.getItem('access_token');
+    const back_icon = icon.replace("data:image/png;base64,", "");
+    const back_head = header.replace("data:image/png;base64,", "");
+    const data = {
+      "name": name,
+      "header_img": back_head,
+      "icon": back_icon,
+      "comment": comment
+    };
+    axios.patch(url, data, { headers: { Authorization: "Bearer " + API_TOKEN } }).then((res) => {
+      console.log(res.data);
+    });
+    <Navigate replace to='/home' />
+  }
+
   return (
     <Grid container className={Style.profileFix}>
       <Grid item xs={12} className={Style.griditem}>
@@ -83,6 +102,7 @@ const ProfileFix = (props: Props) => {
           {icon === '' ? null : <img src={icon} alt='preview' className={Style.thumbnail} />}
         </Grid>
       </Grid>
+      <Button onClick={() => completion()}>完了</Button>
     </Grid >
   );
 }

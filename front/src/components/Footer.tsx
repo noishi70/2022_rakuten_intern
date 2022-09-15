@@ -5,7 +5,7 @@ import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import Style from './Footer.module.css'
 import Search from './Search';
 import { useState } from 'react';
-import Post from './Post';
+import PostComponent from './Post';
 
 
 type Key = {
@@ -20,8 +20,20 @@ type Content = {
     text: string;
 }
 
+type Post = {
+    user_id: string;
+    name: string;
+    icon: string;
+    post_id: string;
+    title: string;
+    content: string;
+    url: string;
+    time: number;
+    datetime: string;
+  }
+
 type props = {
-    setKey?: (arg: Key) => void;
+    setSearchosts: any,
     setContent?:  (arg: Content) => void,
 }
 
@@ -52,10 +64,10 @@ const Footer = (props: props) => {
                 </Grid>
             </Grid >
             <Drawer anchor={anchor} open={search} onClose={() => toggleSearch(false)}>
-                <Search setKey={props.setKey} toggleSearch={toggleSearch} />
+                <Search setSearchosts={props.setSearchosts} />
             </Drawer>
             <Drawer anchor={anchor} open={post} onClose={() => togglePost(false)}>
-                <Post togglePost={togglePost} setContent={props.setContent} />
+                <PostComponent togglePost={togglePost} setContent={props.setContent} />
             </Drawer>
         </div>
     )

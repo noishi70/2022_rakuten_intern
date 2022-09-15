@@ -2,20 +2,35 @@ import { ChangeEvent, useState } from "react";
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
 import { TextField, IconButton, Stack, Container } from "@mui/material";
 import Style from './Search.module.css';
+import axios from 'axios';
 
 type Key = {
   word: string;
   time: number;
 }
 
+type Post = {
+  user_id: string;
+  name: string;
+  icon: string;
+  post_id: string;
+  title: string;
+  content: string;
+  url: string;
+  time: number;
+  datetime: string;
+}
+
 type Props = {
-  setKey?: (arg: Key) => void;
-  toggleSearch?: (arg: boolean) => void;
+  setSearchosts: (arg: Post[]) => void
 };
 
 export default function Search(props: Props) {
   const [searchWordValue, setSearchWordValue] = useState<string>("");
   const [searchTimeValue, setSearchTimeValue] = useState<number>(0);
+  const [searchosts, setSearchosts] = useState<Post[]>([]);
+
+  
 
 
 
@@ -29,12 +44,11 @@ export default function Search(props: Props) {
     }
   }
   const handleSearch = () => {
-    const newKey: Key = {
-      word: searchWordValue,
-      time: searchTimeValue,
-    }
-    props.setKey?.(newKey);
-    props.toggleSearch?.(false);
+    let url = process.env.REACT_APP_API + '/api/posts?key_word=' + searchWordValue + '&time=' + searchTimeValue;
+    const API_TOKEN = sessionStorage.getItem('access_token');
+    axios.get(url, { headers: { Authorization: "Bearer " + API_TOKEN } }).then((res) => {
+      props.setSearchosts(res.data)
+    })
   }
 
   return (
