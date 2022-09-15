@@ -9,7 +9,7 @@ from cruds.favorite import favorite_post_lists, give_favorite, del_favorite
 
 router = APIRouter(tags=["favorite"])
 
-@router.get("/users/favorite", response_model=list[schemas_post])
+@router.get("/users/favorites", response_model=list[schemas_post])
 async def fetch_favorite_posts(current_user: User = Depends(get_current_user)):
     """自分がお気に入りした投稿を取る
 
@@ -24,7 +24,7 @@ async def fetch_favorite_posts(current_user: User = Depends(get_current_user)):
     
 
 
-@router.post("/users/favorite")
+@router.post("/users/favorites")
 async def favorite(post_id: str, current_user: User = Depends(get_current_user)):
     """投稿をお気に入りする
 
@@ -36,7 +36,7 @@ async def favorite(post_id: str, current_user: User = Depends(get_current_user))
     return
 
 
-@router.delete("/users/favorite")
+@router.delete("/users/favorites")
 async def delete_favorite(post_id: str, current_user: User = Depends(get_current_user)):
     """投稿のおお気に入りを消す
 
