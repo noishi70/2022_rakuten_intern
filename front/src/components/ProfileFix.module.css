@@ -1,0 +1,17 @@
+.profileFix {
+    padding: 20px;
+}
+
+.griditem {
+    padding: 10px 0 10px 0;
+}
+
+.beforeupload {
+    padding: 10px 0 115px 0;
+}
+
+.thumbnail {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+}

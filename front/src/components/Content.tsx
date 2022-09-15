@@ -11,8 +11,7 @@ type Props = {
   content: string
   url: string
   time: number
-  datetime: string
-  setValue?: (page: string) => void;
+  datatime: string
 }
 
 const Content = (props:Props) => {
@@ -25,7 +24,9 @@ const Content = (props:Props) => {
       <Grid container spacing={1}>
         <Grid item xs={3}>
           <Grid style={{ height: "100%" }}>
-            <img src={props.icon} alt='icon' className={Style.img} onClick={() => props.setValue?.('Profile@' + props.user_id)} />
+            <a href={'/profile/@' + props.user_id}>
+              <img src={props.icon} alt='icon' className={Style.img} />
+            </a>
           </Grid>
         </Grid>
         <Grid item xs={9}>
@@ -35,7 +36,7 @@ const Content = (props:Props) => {
               <p className={Style.user_id}>@{props.user_id}</p>
             </Grid>
             <Grid item xs={6} className={Style.datetime}>
-              <p>{props.datetime}</p>
+              <p>{props.datatime}</p>
             </Grid>
           </Grid>
           <Grid item xs={12}>
@@ -43,7 +44,7 @@ const Content = (props:Props) => {
             <Grid item xs={12} className={ text.length > 21 ? ( open ? Style.accordionopen : Style.accordion ) : null }>
               <MultiLine line={ text.length > 21 || minText.indexOf('\n') != -1 ? ( open ? text : ( minText.indexOf('\n') == -1 ? minText + '...' : minText.split('\n')[0] + '...' )) : minText }/>
               <Grid item xs={1}>
-                { text.length > 21 || minText.indexOf('\n') != -1 ? ( open ? <a href={props.url} className={Style.url}>{props.url}</a> : null ) : <a href={props.url} className={Style.url}>{props.url}</a> }
+                { text.length > 21 || minText.indexOf('\n') != -1 ? ( open ? <a href={props.url} className={Style.url}>{props.url}</a> : null ) : <a href={props.url} className={Style.urlshort}>{props.url}</a> }
               </Grid>
             </Grid>
             <Grid item xs={12}>
