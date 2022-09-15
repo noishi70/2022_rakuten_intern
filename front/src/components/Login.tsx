@@ -56,6 +56,7 @@ const Login = (props:props) => {
           onChange={(e) => getUserName(e.target.value)}
           label="Username"
           variant="standard"
+          value = {username}
           fullWidth
           required
         />
@@ -64,7 +65,7 @@ const Login = (props:props) => {
           type="password"
           label="Password"
           variant="standard"
-          value
+          value = {password}
           fullWidth
           required
         />

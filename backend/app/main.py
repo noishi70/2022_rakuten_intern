@@ -4,9 +4,19 @@ from routers import posts
 from routers import follow
 from routers import favorite
 from routers import _auth_flow
+from starlette.middleware.cors import CORSMiddleware
 from libs import auth
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+    expose_headers=["content-disposition"],
+)
 
 app.include_router(auth.router)
 app.include_router(favorite.router, prefix="/api")

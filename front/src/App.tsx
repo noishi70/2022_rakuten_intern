@@ -46,7 +46,7 @@ const App: any = () => {
     datatime: string;
   }
 
-  {/* API—phooks */ }
+  {/* APIï¿½phooks */ }
   const [userMe, setUserMe] = useState<User>();
   const [userID, setUserID] = useState<User>();
   const [timeline, setTimeline] = useState<Array<Post>>();
@@ -58,32 +58,63 @@ const App: any = () => {
   const [profile, setProfile] = useState({header: '', icon: '', name: '', comment: ''});
   const [search, setSearch] = useState({word: '', time: 0});
   const [content, setContent] = useState({title: '', url: '', time: 0, text: ''})
-  const [login, setLogin] = useState({username: "",password:""})
+  const [login, setLogin] = useState<LoginInfo>({username: "",password:""})
 
   const apiurl = process.env.REACT_APP_API || '';
   const token = sessionStorage.getItem('access_tokun');
 
-  {/* API‚É‚æ‚éƒf[ƒ^Žæ“¾ */ }
+  type LoginInfo = {
+    username: string;
+    password: string;
+  }
+
+  const changeLogin = (arg: LoginInfo): void => {
+    setLogin(arg);
+    const params = new URLSearchParams();
+    params.append('username', login.username);
+    params.append('password', login.password);
+    let config = {
+      headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    };
+    let url = process.env.REACT_APP_API + '/token';
+                axios.post(url, params, config).then(res =>{
+                  sessionStorage.setItem('access_token', res.data.access_token);
+                  console.log(res.data.access_token);
+
+                });
+  }
+
+  {/* APIï¿½É‚ï¿½ï¿½fï¿½[ï¿½^ï¿½æ“¾ */ }
   const usermeget = () => {
-    axios.get(apiurl).then((res) => {
+    let url = process.env.REACT_APP_API + '/api/me';
+    const API_TOKEN = sessionStorage.getItem('access_token');
+    axios.get(url, { headers: { Authorization: "Bearer " + API_TOKEN } }).then((res) => {
       setUserMe(res.data);
     })
   }
 
-  const userIDget = () => {
-    axios.get(apiurl).then((res) => {
+  const userIDget = (user_id: string) => {
+    let url = process.env.REACT_APP_API + '/api/users/' + user_id;
+    const API_TOKEN = sessionStorage.getItem('access_token');
+    axios.get(url, { headers: { Authorization: "Bearer " + API_TOKEN } }).then((res) => {
       setUserID(res.data);
     })
   }
 
   const timelineget = () => {
-    axios.get(apiurl).then((res) => {
+    let url = process.env.REACT_APP_API + '/api/users/timeline';
+    const API_TOKEN = sessionStorage.getItem('access_token');
+    axios.get(url, { headers: { Authorization: "Bearer " + API_TOKEN } }).then((res) => {
       setTimeline(res.data);
     })
   }
 
   const favoriteget = () => {
-    axios.get(apiurl).then((res) => {
+    let url = process.env.REACT_APP_API + '/api/users/favorites';
+    const API_TOKEN = sessionStorage.getItem('access_token');
+    axios.get(url, { headers: { Authorization: "Bearer " + API_TOKEN } }).then((res) => {
       setFavorite(res.data);
     })
   }
@@ -228,7 +259,7 @@ return (
           </div>
           :
           <div>
-            <Login setLogin={setLogin} />
+            <Login setLogin={changeLogin} />
           </div>
       } />
       <Route path={'/profile/*'} element={
