@@ -18,6 +18,11 @@ def signup(user_id: str, email: str, hashed_password: str) -> None:
 
     return
 
+def is_exist_user_by_email(email: str) -> bool:
+    user = session.query(User).filter(User.email==email).first()
+    return user != None
+
+
 
 def get_user_by_id(user_id: str) -> User:
     """ユーザをIDから指定して情報を取得する

@@ -1,6 +1,7 @@
 from uuid import uuid4
 import hashlib
 from fastapi import APIRouter, Depends, HTTPException
+from cruds.users import is_exist_user_by_email
 
 from schemas.users import User, CreateUser, UserAndPosts, PatchUser
 import schemas.posts
@@ -84,6 +85,9 @@ def user_signup(
         email (str): emailアドレス
         password (str): パスワード
     """
+    email = create_user.email
+    if is_exist_user_by_email(email):
+        return HTTPException(status_code=400, detail="Bad Requests")
     user_id = str(uuid4())
     hashed_password = hashlib.md5(create_user.password.encode()).hexdigest()
     signup(user_id=user_id, email=create_user.email, hashed_password=hashed_password)
