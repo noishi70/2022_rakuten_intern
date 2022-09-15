@@ -16,7 +16,7 @@ class Post(BaseModel):
     content: str
     url: str
     datetime: datetime
-    duration: int
+    time: int
 
     class Config:
         orm_mode = True
@@ -25,7 +25,7 @@ class CreatePost(BaseModel):
     title: str
     content: str
     url: str
-    duration: int
+    time: int
 
 
 class UsersPost(BaseModel):
