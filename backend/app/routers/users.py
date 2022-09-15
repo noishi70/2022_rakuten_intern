@@ -134,12 +134,12 @@ def get_user(
     users_posts = []
     for p in posts:
         users_post = schemas.posts.UsersPost(
-            id=p.post_id.v,
-            title=p.title.v,
-            content=p.content.v,
-            url=p.url.v,
-            time=p.duration.v,
-            datetime=p.datetime.v,
+            id=p.post_id,
+            title=p.title,
+            content=p.content,
+            url=p.url,
+            time=p.duration,
+            datetime=p.datetime,
         )
         
         users_posts.append(users_post)
@@ -152,7 +152,7 @@ def get_user(
         header_img=head_img,
         icon=img,
         comment=str(user.comment),
-        email=user.email.v,
+        email=user.email,
         follows=followers,
         followers=followees,
         posts=users_posts
