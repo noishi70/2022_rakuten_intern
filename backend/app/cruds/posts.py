@@ -5,8 +5,17 @@ from sqlalchemy import and_, or_
 from models.models import Post
 from uuid import uuid4
 
-# create
+
 def create_post(title: str, content: str, url: str, duration: int, user_id: str) -> None:
+    """投稿を作成してDBに流す
+
+    Args:
+        title (str): 投稿タイトル名
+        content (str): 投稿内容
+        url (str): 投稿のURL
+        duration (int): 投稿の所要時間
+        user_id (str): 投稿者ID
+    """
     post = Post(
         post_id=str(uuid4()),
         title=title,
@@ -21,11 +30,20 @@ def create_post(title: str, content: str, url: str, duration: int, user_id: str)
     session.close()
     return 
 
-# read
+
 def fetch_posts(
     key_word: Optional[str] = None,
     time: Optional[int] = None,
 ) -> list[Post]:
+    """条件にあった投稿をDBから取得
+
+    Args:
+        key_word (Optional[str], optional): 投稿を探すためのキーワード. Defaults to None.
+        time (Optional[int], optional): 通勤時間など(暇な時間のこと). Defaults to None.
+
+    Returns:
+        list[Post]: 条件にあった投稿を取得
+    """
     filters = []
     if key_word:
         filters.append(
