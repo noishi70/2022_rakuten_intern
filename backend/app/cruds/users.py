@@ -39,6 +39,15 @@ def update_me(
     icon: Optional[str] = None, 
     comment: Optional[str] = None
     ) -> None:
+    """自身のプロフィールをアップデートする
+
+    Args:
+        user_id (str): userID
+        name (Optional[str], optional): 変更後のユーザの名前. Defaults to "".
+        header_img (Optional[str], optional): 変更後のユーザのheader. Defaults to None.
+        icon (Optional[str], optional): 変更後のユーザのicon. Defaults to None.
+        comment (Optional[str], optional): 変更後のユーザのプロフィールコメント. Defaults to None.
+    """
     
     me = session.query(User).filter(User.user_id==user_id).first()
     if name:
