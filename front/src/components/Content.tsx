@@ -41,7 +41,7 @@ const Content = (props:Props) => {
           </Grid>
           <Grid item xs={12}>
             <p className={Style.title}>{props.title}</p>
-            <Grid item xs={12} className={ text.length > 21 ? ( open ? Style.accordionopen : Style.accordion ) : null }>
+            <Grid item xs={12} className={ text.length > 21 ? ( open ? Style.accordionopen : Style.accordion ) : '' }>
               <MultiLine line={ text.length > 21 || minText.indexOf('\n') != -1 ? ( open ? text : ( minText.indexOf('\n') == -1 ? minText + '...' : minText.split('\n')[0] + '...' )) : minText }/>
               <Grid item xs={1}>
                 { text.length > 21 || minText.indexOf('\n') != -1 ? ( open ? <a href={props.url} className={Style.url}>{props.url}</a> : null ) : <a href={props.url} className={Style.urlshort}>{props.url}</a> }
