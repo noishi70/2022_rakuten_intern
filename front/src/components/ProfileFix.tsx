@@ -2,7 +2,6 @@ import { Button, Grid, TextField } from '@mui/material';
 import React, { useState } from 'react';
 import Style from './ProfileFix.module.css';
 import axios from 'axios';
-import {Navigate} from 'react-router-dom';
 
 type Props = {
   header: string;

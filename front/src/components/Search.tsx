@@ -1,13 +1,9 @@
-import { ChangeEvent, useState } from "react";
+import { useState } from "react";
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
 import { TextField, IconButton, Stack, Container } from "@mui/material";
 import Style from './Search.module.css';
 import axios from 'axios';
 
-type Key = {
-  word: string;
-  time: number;
-}
 
 type Post = {
   user_id: string;
@@ -28,7 +24,6 @@ type Props = {
 export default function Search(props: Props) {
   const [searchWordValue, setSearchWordValue] = useState<string>("");
   const [searchTimeValue, setSearchTimeValue] = useState<number>(0);
-  const [searchosts, setSearchosts] = useState<Post[]>([]);
 
   
 

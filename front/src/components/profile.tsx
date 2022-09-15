@@ -3,7 +3,6 @@ import { Button, Drawer } from '@mui/material';
 import Style from "./Profile.module.css";
 import ProfileFix from "./ProfileFix";
 import axios from 'axios';
-import  Link  from "react-router-dom"
 
 type Props = {
   my_id: string;

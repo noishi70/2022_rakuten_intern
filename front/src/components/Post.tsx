@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { TextField, Button, Stack, Container } from "@mui/material";
 import Style from './Post.module.css';
 import axios from 'axios';
-import {Navigate} from 'react-router-dom';
 
 type Content = {
   title: string;

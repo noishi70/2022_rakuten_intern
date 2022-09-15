@@ -1,4 +1,4 @@
-import { Grid, IconButton } from '@mui/material';
+import { Grid } from '@mui/material';
 import React, { useState } from 'react';
 import Style from './Content.module.css';
 

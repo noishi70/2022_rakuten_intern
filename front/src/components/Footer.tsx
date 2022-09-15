@@ -8,10 +8,6 @@ import { useState } from 'react';
 import PostComponent from './Post';
 
 
-type Key = {
-    word: string;
-    time: number;
-}
 
 type Content = {
     title: string;
@@ -20,17 +16,6 @@ type Content = {
     text: string;
 }
 
-type Post = {
-    user_id: string;
-    name: string;
-    icon: string;
-    post_id: string;
-    title: string;
-    content: string;
-    url: string;
-    time: number;
-    datetime: string;
-  }
 
 type props = {
     setSearchosts: any,

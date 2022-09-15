@@ -1,11 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Grid } from '@mui/material';
 import Style from '../App.module.css';
-import Header from '../components/Header';
 import Content from '../components/Content';
 import Profile from '../components/Profile';
-import Login from '../components/Login';
 import Footer from '../components/Footer';
 import {useLocation} from 'react-router-dom';
 

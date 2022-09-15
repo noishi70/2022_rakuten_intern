@@ -1,15 +1,5 @@
 import {
-    Avatar,
-    Box,
-    Button,
-    Checkbox,
-    FormControlLabel,
-    Grid,
     Link,
-    Paper,
-    Stack,
-    TextField,
-    Typography,
   } from "@mui/material"
 type Props = {
     showFlag: boolean;
@@ -17,12 +7,9 @@ type Props = {
 }
 
 const Modal = (props: Props) => {
-    const closeModal = () => {
-        props.setShowModal(false);
-    };
   return (
     <>
-      {props.showFlag ? ( // showFlagがtrueだったらModalを表示する
+      {props.showFlag ? (
         <div id="overlay">
           <div id="modalContent">
             <p>メールを送信しました</p>
@@ -30,7 +17,7 @@ const Modal = (props: Props) => {
           </div>
         </div>
       ) : (
-        <></>// showFlagがfalseの場合はModalは表示しない
+        <></>
       )}
     </>
   );

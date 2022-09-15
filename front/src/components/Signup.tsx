@@ -1,27 +1,18 @@
-import { ChangeEvent, useState } from "react";
+import { useState } from "react";
 import {
   Avatar,
   Box,
   Button,
-  Checkbox,
-  FormControlLabel,
   Grid,
   Link,
   Paper,
-  Stack,
   TextField,
   Typography,
 } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { teal } from "@mui/material/colors";
 import axios from 'axios';
-import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import Modal from "./Modal"
-
-type user = {
-  username: string;
-  password: string;
-};
 
 
 const Signup = () => {
@@ -36,9 +27,6 @@ const Signup = () => {
     setShowModal(true);
   }
 
-  const ShowModal = () => {
-    setShowModal(true);
-  };
 
   return (
     <Grid>
