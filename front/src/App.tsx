@@ -82,16 +82,17 @@ const App: any = () => {
                 axios.post(url, params, config).then(res =>{
                   sessionStorage.setItem('access_token', res.data.access_token);
                   console.log(res.data.access_token);
-
+                  usermeget();
                 });
   }
 
   {/* API�ɂ��f�[�^�擾 */ }
   const usermeget = () => {
-    let url = process.env.REACT_APP_API + '/api/me';
+    let url = process.env.REACT_APP_API + '/api/users/me';
     const API_TOKEN = sessionStorage.getItem('access_token');
     axios.get(url, { headers: { Authorization: "Bearer " + API_TOKEN } }).then((res) => {
       setUserMe(res.data);
+      console.log(res.data)
     })
   }
 
