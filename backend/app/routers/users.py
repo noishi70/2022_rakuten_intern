@@ -27,7 +27,7 @@ def get_timeline(current_user: User = Depends(get_current_user)):
     posts = fetch_all_posts()
     
     followee_ids = get_followees(current_user.user_id)
-    res_posts = [schemas.posts.Post(**post.to_dict(), name=post.user_id, icon=get_user_by_id(post.user_id).icon) for post in posts if post.user_id == current_user.user_id]
+    res_posts = [schemas.posts.Post(**post.to_dict(), name=get_user_by_id(post.user_id).name, icon=get_user_by_id(post.user_id).icon) for post in posts if post.user_id == current_user.user_id]
     return res_posts
 
 
