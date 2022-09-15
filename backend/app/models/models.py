@@ -70,7 +70,7 @@ class Post(Base):
     content = Column(String(1024))
     url = Column(String(512))
     datetime = Column(DateTime, default=datetime.now(), nullable=False)
-    duration = Column(Integer)
+    time = Column(Integer)
     user_id = Column(String(64), ForeignKey("users.user_id"), nullable=False)
 
     def to_dict(self):
@@ -80,7 +80,7 @@ class Post(Base):
             "content": self.content,
             "url": self.url,
             "datetime": self.datetime,
-            "duration": self.duration,
+            "time": self.time,
             "user_id": self.user_id
         }
     
