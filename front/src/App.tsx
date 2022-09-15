@@ -10,7 +10,6 @@ import ProfileFix from './components/ProfileFix';
 import Footer from './components/Footer';
 import Search from './components/Search'
 import Post from './components/Post';
-import Login from './components/Login';
 
 type Key = {
   word: string;
@@ -23,7 +22,6 @@ const App: any = () => {
   const [profile, setProfile] = useState({header: '', icon: '', name: '', comment: ''});
   const [search, setSearch] = useState({word: '', time: 0});
   const [content, setContent] = useState({title: '', url: '', time: 0, text: ''})
-  const [login, setLogin] = useState({username: "",password:""})
 
   const content_info = {
     user_id: 0,
@@ -124,16 +122,6 @@ const App: any = () => {
             <Footer {...footer_info} />
           </div>
         } />
-
-        <Route path="/login" element={
-          <div>
-            <Login setLogin={setLogin} />
-            <p>
-              {login.username}
-            </p>
-          </div>
-        }  />
-          
       </Routes>
     </BrowserRouter>
 

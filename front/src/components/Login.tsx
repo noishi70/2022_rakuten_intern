@@ -15,18 +15,7 @@ import {
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { teal } from "@mui/material/colors";
 
-type user = {
-  username: string;
-  password: string;
-};
-
-type props = {
-  setLogin?: (user: user) => void;
-};
-
-const Login = (props:props) => {
-  const [username, getUserName] = useState("");
-  const [password, getPassWord] = useState("");
+const Login = () => {
 
   return (
     <Grid>
@@ -52,19 +41,12 @@ const Login = (props:props) => {
             Sign In
           </Typography>
         </Grid>
+        <TextField label="Username" variant="standard" fullWidth required />
         <TextField
-          onChange={(e) => getUserName(e.target.value)}
-          label="Username"
-          variant="standard"
-          fullWidth
-          required
-        />
-        <TextField
-          onChange={(e) => getPassWord(e.target.value)}
           type="password"
           label="Password"
-          variant="standard"
-          value
+                  variant="standard"
+                  value
           fullWidth
           required
         />
@@ -75,13 +57,7 @@ const Login = (props:props) => {
           control={<Checkbox name="checkboxA" size="small" color="primary" />}
         />
         <Box mt={3}>
-          <Button
-            onClick={() => props.setLogin?.({username,password})}
-            type="submit"
-            color="primary"
-            variant="contained"
-            fullWidth
-          >
+          <Button type="submit" color="primary" variant="contained" fullWidth>
             サインイン
           </Button>
 
@@ -98,4 +74,4 @@ const Login = (props:props) => {
   );
 };
 
-export default Login;
+export default Login
