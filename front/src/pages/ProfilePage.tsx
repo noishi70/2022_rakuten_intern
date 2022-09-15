@@ -68,9 +68,6 @@ export default function ProfilePage() {
     const [searchosts, setSearchosts] = useState<Post[]>();
     const [profile, setProfile] = useState({header: '', icon: '', name: '', comment: ''});
     const [userid, setUserid] = useState<string>("");
-    const [page, setPage] = useState('/');
-    const [mode, setMode] = useState('/');
-    const [search, setSearch] = useState({word: '', time: 0});
     const [content, setContent] = useState({title: '', url: '', time: 0, text: ''})
 
     useEffect(() => {

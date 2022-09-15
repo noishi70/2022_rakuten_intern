@@ -5,10 +5,12 @@ import StarIcon from '@mui/icons-material/Star';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import { useState } from 'react';
 import Style from './Header.module.css';
+import axios from 'axios';
 
 type Props = {
   user_id: string;
   icon: string;
+  setSearchosts: any;
   setPage?: (arg: string) => void;
   setMode?: (arg: string) => void;
 }
@@ -16,6 +18,20 @@ type Props = {
 const Header = (props: Props) => {
   const [drawer, toggleDrawer] = useState(false);
   const anchor = 'bottom';
+  const showtimeline = () => {
+    let url = process.env.REACT_APP_API + '/api/users/timeline';
+    const API_TOKEN = sessionStorage.getItem('access_token');
+    axios.get(url, { headers: { Authorization: "Bearer " + API_TOKEN } }).then((res) => {
+      props.setSearchosts(res.data);
+    });
+  }
+  const showbookmark = () => {
+    let url = process.env.REACT_APP_API + '/api/users/favorites';
+    const API_TOKEN = sessionStorage.getItem('access_token');
+    axios.get(url, { headers: { Authorization: "Bearer " + API_TOKEN } }).then((res) => {
+      props.setSearchosts(res.data);
+    });
+  }
 
   return (
     <div className={Style.header}>
@@ -33,12 +49,12 @@ const Header = (props: Props) => {
         <Drawer anchor={anchor} open={drawer} onClose={() => toggleDrawer(false)}>
           <Grid container className={Style.drawer}>
             <Grid item xs={12} md={4}>
-              <IconButton className={Style.drawerbutton} onClick={() => { props.setMode?.('timeline'); toggleDrawer(false) }}>
+              <IconButton className={Style.drawerbutton} onClick={() => showtimeline()}>
                 <AccessTimeIcon fontSize='large' color='primary' />タイムライン
               </IconButton>
             </Grid>
             <Grid item xs={12} md={4}>
-              <IconButton className={Style.drawerbutton} onClick={() => { props.setMode?.('bookmark'); toggleDrawer(false) }}>
+              <IconButton className={Style.drawerbutton} onClick={() => showbookmark()}>
                 <StarIcon fontSize='large' color='primary' />ブックマーク
               </IconButton>
             </Grid>
