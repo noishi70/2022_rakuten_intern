@@ -54,7 +54,7 @@ const Login = (props:props) => {
         </Grid>
         <TextField
           onChange={(e) => getUserName(e.target.value)}
-          label="Username"
+          label="Email"
           variant="standard"
           value = {username}
           fullWidth
