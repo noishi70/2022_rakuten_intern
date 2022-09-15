@@ -1,12 +1,11 @@
 from uuid import uuid4
 import hashlib
 from fastapi import APIRouter, Depends, HTTPException
-from typing import List
 
 from schemas.users import User, CreateUser, UserAndPosts, PatchUser
 import schemas.posts
 from cruds.users import signup, get_user_by_id
-from cruds.posts import fetch_posts_by_id
+from cruds.posts import fetch_posts_by_id, fetch_all_posts
 from cruds.follow import count_followers, count_followees
 from libs.auth import get_current_user
 from libs.img import save_icon_imag, change_imag_to_base64
@@ -15,6 +14,20 @@ from db import session
 router = APIRouter(
     tags=["users"]
 )
+
+
+@router.get("/timeline", response_model=list[schemas.posts.Post])
+def get_timeline(current_user: User = Depends(get_current_user)):
+    """タイムラインの投稿を取る
+
+    Args:
+        current_user (User, optional): 現在ログインしているユーザ
+    """
+    posts = fetch_all_posts()
+    
+    res_posts = [schemas.posts.Post(**post.to_dict(), name=post.user_id, icon=get_user_by_id(post.user_id).icon) for post in posts]
+    return res_posts
+
 
 @router.get("/me", response_model=UserAndPosts)
 async def read_users_me(current_user: User = Depends(get_current_user)):
@@ -43,9 +56,10 @@ async def read_users_me(current_user: User = Depends(get_current_user)):
         )
         
         users_posts.append(users_post)
-        
+    
     head_img = change_imag_to_base64(str(user.header_img))
     img = change_imag_to_base64(str(user.icon))
+
     res_data = UserAndPosts(
         user_id=str(user.user_id),
         name=str(user.name),
@@ -148,13 +162,3 @@ def get_user(
 
 
 
-@router.get("/timeline", response_model=List[schemas.posts.Post])
-def get_timeline(current_user: User = Depends(get_current_user)):
-    """タイムラインの投稿を取る
-
-    Args:
-        current_user (User, optional): 現在ログインしているユーザ
-    """
-
-
-    return 
