@@ -1,13 +1,21 @@
 import { Grid } from '@mui/material';
 import { useState } from 'react';
+import axios from 'axios';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Style from './App.module.css';
 
 import Header from './components/Header';
-import Content from './components/Content'
+import Content from './components/Content';
 import Profile from './components/Profile';
+import Login from './components/Login';
 import Footer from './components/Footer';
-import axios from 'axios';
+
+type Key = {
+  word: string;
+  time: number;
+}
+
+
 
 const App: any = () => {
   type User = {
@@ -49,9 +57,10 @@ const App: any = () => {
 
   const [page, setPage] = useState('/');
   const [mode, setMode] = useState('/');
-  const [profile, setProfile] = useState({ header: '', icon: '', name: '', comment: '' });
-  const [search, setSearch] = useState({ word: '', time: 0 });
-  const [content, setContent] = useState({ title: '', url: '', time: 0, text: '' })
+  const [profile, setProfile] = useState({header: '', icon: '', name: '', comment: ''});
+  const [search, setSearch] = useState({word: '', time: 0});
+  const [content, setContent] = useState({title: '', url: '', time: 0, text: ''})
+  const [login, setLogin] = useState({username: "",password:""})
 
   const apiurl = 'http://0.0.0.0:4000';
 
@@ -233,6 +242,14 @@ return (
           <Footer {...footer_info} />
         </div>
       } />
+      <Route path="/login" element={
+          <div>
+            <Login setLogin={setLogin} />
+            <p>
+              {login.username}
+            </p>
+          </div>
+        }  />
     </Routes>
   </BrowserRouter>
 

@@ -2,7 +2,6 @@ import { useState } from "react";
 import { Button, Drawer } from '@mui/material';
 import Style from "./Profile.module.css";
 import ProfileFix from "./ProfileFix";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 type Props = {
   my_id: number;
