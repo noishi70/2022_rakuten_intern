@@ -18,7 +18,7 @@ async def fetch_favorite_posts(current_user: User = Depends(get_current_user)):
     """
     posts = favorite_post_lists(user_id=current_user.user_id)
     if posts:
-        res_posts = [schemas_post(**post.to_dict(), name=post.user_id, icon=get_user_by_id(post.user_id).icon) for post in posts]
+        res_posts = [schemas_post(**post.to_dict(), name=get_user_by_id(post.user_id).name, icon=get_user_by_id(post.user_id).icon, ) for post in posts]
         return res_posts
     return []
     
