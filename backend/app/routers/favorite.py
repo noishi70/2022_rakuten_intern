@@ -11,6 +11,11 @@ router = APIRouter(tags=["favorite"])
 
 @router.get("/users/favorite", response_model=list[schemas_post])
 async def fetch_favorite_posts(current_user: User = Depends(get_current_user)):
+    """自分がお気に入りした投稿を取る
+
+    Args:
+        current_user (User, optional): ログインユーザ. Defaults to Depends(get_current_user).
+    """
     posts = favorite_post_lists(user_id=current_user.user_id)
     if posts:
         res_posts = [schemas_post(**post.to_dict(), name=post.user_id, icon=get_user_by_id(post.user_id).icon) for post in posts]
@@ -21,11 +26,23 @@ async def fetch_favorite_posts(current_user: User = Depends(get_current_user)):
 
 @router.post("/users/favorite")
 async def favorite(post_id: str, current_user: User = Depends(get_current_user)):
+    """投稿をお気に入りする
+
+    Args:
+        post_id (str): 投稿ID
+        current_user (User, optional): ログインユーザ. Defaults to Depends(get_current_user).
+    """
     give_favorite(user_id=current_user.user_id, post_id=post_id)
     return
 
 
 @router.delete("/users/favorite")
 async def delete_favorite(post_id: str, current_user: User = Depends(get_current_user)):
+    """投稿のおお気に入りを消す
+
+    Args:
+        post_id (str): 投稿ID
+        current_user (User, optional): ログインユーザ. Defaults to Depends(get_current_user).
+    """
     del_favorite(user_id=current_user.user_id, post_id=post_id)
     return 
