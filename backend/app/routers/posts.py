@@ -28,6 +28,9 @@ def post_post(
         time (int): 所要時間
     """
     try:
+        if create_post_body.time < 0:
+            raise HTTPException(status_code=409, detail="time should be positive")
+
         create_post(
             title=create_post_body.title, 
             content=create_post_body.content, 
