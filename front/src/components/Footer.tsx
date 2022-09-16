@@ -28,6 +28,11 @@ const Footer = (props: props) => {
     const [post, togglePost] = useState(false);
     const anchor = 'bottom';
 
+    const logout = () => {
+        sessionStorage.clear();
+        window.location.reload()
+      }
+
     return (
         <div className={Style.footer}>
             <Grid container>
@@ -49,7 +54,7 @@ const Footer = (props: props) => {
                     </IconButton>
                 </Grid>
                 <Grid item xs={3} className={Style.griditem}>
-                    <IconButton onClick={() => togglePost(true)}>
+                    <IconButton onClick={() => logout()}>
                         <LogoutIcon fontSize='large' color='primary' />
                     </IconButton>
                 </Grid>
