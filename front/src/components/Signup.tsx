@@ -49,7 +49,7 @@ const Signup = () => {
           <LockOutlinedIcon />
         </Avatar>
         <Typography variant={"h5"} sx={{ m: "30px" }}>
-          Sign In
+          Sign Up
         </Typography>
       </Grid>
       <TextField
@@ -88,7 +88,7 @@ const Signup = () => {
           サインアップ
         </Button>
         <Typography variant="caption" display="block">
-          アカウントを持っていますか？
+          アカウントを持っている人はこちら！
           <Link href="/">ログイン</Link>
         </Typography>
         <Modal showFlag={showModal} setShowModal={setShowModal}/>
