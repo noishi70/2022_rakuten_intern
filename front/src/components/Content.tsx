@@ -1,4 +1,5 @@
-import { Grid } from '@mui/material';
+import { Grid, IconButton } from '@mui/material';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import React, { useState } from 'react';
 import Style from './Content.module.css';
 
@@ -14,7 +15,7 @@ type Props = {
   datetime: string
 }
 
-const Content = (props:Props) => {
+const Content = (props: Props) => {
   const [open, setOpen] = useState(false);
   const text = props.content;
   const minText = text.substring(0, 21);
@@ -32,8 +33,8 @@ const Content = (props:Props) => {
         <Grid item xs={9}>
           <Grid container spacing={1} alignItems={'center'}>
             <Grid item xs={5} className={Style.user_info}>
-              <p className={Style.name}>{props.name.substring(0,10) + '...'}</p>
-              <p className={Style.user_id}>@{props.user_id.substring(0,10) + '...'}</p>
+              <p className={Style.name}>{ props.name.length > 10 ? props.name.substring(0, 10) + '...' : props.name }</p>
+              <p className={Style.user_id}>@{ props.name.length > 10 ? props.user_id.substring(0, 10) + '...' : props.user_id }</p>
             </Grid>
             <Grid item xs={7} className={Style.datetime}>
               <p>{props.datetime}</p>
@@ -41,20 +42,25 @@ const Content = (props:Props) => {
           </Grid>
           <Grid item xs={12}>
             <p className={Style.title}>{props.title}</p>
-            <Grid item xs={12} className={ text.length > 21 ? ( open ? Style.accordionopen : Style.accordion ) : '' }>
-              <MultiLine line={ text.length > 21 || minText.indexOf('\n') != -1 ? ( open ? text : ( minText.indexOf('\n') == -1 ? minText + '...' : minText.split('\n')[0] + '...' )) : minText }/>
+            <Grid item xs={12} className={text.length > 21 ? (open ? Style.accordionopen : Style.accordion) : ''}>
+              <MultiLine line={text.length > 21 || minText.indexOf('\n') != -1 ? (open ? text : (minText.indexOf('\n') == -1 ? minText + '...' : minText.split('\n')[0] + '...')) : minText} />
               <Grid item xs={1}>
-                { text.length > 21 || minText.indexOf('\n') != -1 ? ( open ? <a href={props.url} className={Style.url}>{props.url}</a> : null ) : <a href={props.url} className={Style.urlshort}>{props.url}</a> }
+                {text.length > 21 || minText.indexOf('\n') != -1 ? (open ? <a href={props.url} className={Style.url}>{props.url}</a> : null) : <a href={props.url} className={Style.urlshort}>{props.url}</a>}
               </Grid>
             </Grid>
             <Grid item xs={12}>
-              { text.length > 21
-                ? ( open ? <button className={Style.closebutton} onClick={() => setOpen(false)}>表示を減ら�?</button> : <button className={Style.openbutton} onClick={() => setOpen(true)}>続きを表示</button> )
-                : null 
+              {text.length > 21
+                ? (open ? <button className={Style.closebutton} onClick={() => setOpen(false)}>表示を減ら�?</button> : <button className={Style.openbutton} onClick={() => setOpen(true)}>続きを表示</button>)
+                : null
               }
             </Grid>
             <Grid item xs={12}>
               <p>{props.time}</p>
+            </Grid>
+            <Grid item xs={12}>
+              <IconButton>
+                <FavoriteBorderIcon />
+              </IconButton>
             </Grid>
           </Grid>
         </Grid>
