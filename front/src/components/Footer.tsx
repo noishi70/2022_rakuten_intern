@@ -2,6 +2,7 @@ import { Drawer, Grid, IconButton } from '@mui/material';
 import HomeIcon from '@mui/icons-material/Home';
 import SearchIcon from '@mui/icons-material/Search';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import LogoutIcon from '@mui/icons-material/Logout';
 import Style from './Footer.module.css'
 import Search from './Search';
 import { useState } from 'react';
@@ -30,21 +31,26 @@ const Footer = (props: props) => {
     return (
         <div className={Style.footer}>
             <Grid container>
-                <Grid item xs={4} className={Style.griditem}>
+                <Grid item xs={3} className={Style.griditem}>
                     <IconButton>
                         <a href='/home'>
                             <HomeIcon fontSize='large' color='primary' />
                         </a>
                     </IconButton>
                 </Grid>
-                <Grid item xs={4} className={Style.griditem}>
+                <Grid item xs={3} className={Style.griditem}>
                     <IconButton onClick={() => toggleSearch(true)}>
                         <SearchIcon fontSize='large' color='primary' />
                     </IconButton>
                 </Grid>
-                <Grid item xs={4} className={Style.griditem}>
+                <Grid item xs={3} className={Style.griditem}>
                     <IconButton onClick={() => togglePost(true)}>
                         <AddCircleOutlineIcon fontSize='large' color='primary' />
+                    </IconButton>
+                </Grid>
+                <Grid item xs={3} className={Style.griditem}>
+                    <IconButton onClick={() => togglePost(true)}>
+                        <LogoutIcon fontSize='large' color='primary' />
                     </IconButton>
                 </Grid>
             </Grid >

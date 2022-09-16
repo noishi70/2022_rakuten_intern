@@ -30,12 +30,12 @@ const Content = (props:Props) => {
           </Grid>
         </Grid>
         <Grid item xs={9}>
-          <Grid container spacing={1}>
-            <Grid item xs={6} className={Style.user_info}>
-              <p className={Style.name}>{props.name}</p>
-              <p className={Style.user_id}>@{props.user_id}</p>
+          <Grid container spacing={1} alignItems={'center'}>
+            <Grid item xs={5} className={Style.user_info}>
+              <p className={Style.name}>{props.name.substring(0,10) + '...'}</p>
+              <p className={Style.user_id}>@{props.user_id.substring(0,10) + '...'}</p>
             </Grid>
-            <Grid item xs={6} className={Style.datetime}>
+            <Grid item xs={7} className={Style.datetime}>
               <p>{props.datetime}</p>
             </Grid>
           </Grid>
@@ -49,7 +49,7 @@ const Content = (props:Props) => {
             </Grid>
             <Grid item xs={12}>
               { text.length > 21
-                ? ( open ? <button className={Style.closebutton} onClick={() => setOpen(false)}>表示を減らす</button> : <button className={Style.openbutton} onClick={() => setOpen(true)}>続きを表示</button> )
+                ? ( open ? <button className={Style.closebutton} onClick={() => setOpen(false)}>表示を減ら�?</button> : <button className={Style.openbutton} onClick={() => setOpen(true)}>続きを表示</button> )
                 : null 
               }
             </Grid>
